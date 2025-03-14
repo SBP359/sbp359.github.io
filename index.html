@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome Website</title>
+    <title>SBP359 | Awesome Portfolio</title>
     <style>
         :root {
             --primary-color: #00ff88;
             --secondary-color: #0066ff;
+            --accent-color: #ff3366;
             --background: #0a0a0a;
             --text-color: #ffffff;
         }
@@ -18,8 +19,26 @@
             box-sizing: border-box;
         }
 
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         body {
-            background: var(--background);
+            background: linear-gradient(45deg, 
+                var(--background), 
+                #1a1a1a, 
+                #141414, 
+                var(--background));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             color: var(--text-color);
             font-family: 'Arial', sans-serif;
             overflow-x: hidden;
@@ -40,7 +59,9 @@
             position: fixed;
             width: 100%;
             z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
         }
 
         .logo {
@@ -52,6 +73,7 @@
         .logo img {
             height: 40px;
             width: auto;
+            filter: drop-shadow(0 0 10px var(--primary-color));
         }
 
         .logo-text {
@@ -60,6 +82,7 @@
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
 
         .menu-items {
@@ -74,12 +97,34 @@
             border-radius: 20px;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .glow-button:hover::before {
+            left: 100%;
         }
 
         .glow-button:hover {
             box-shadow: 0 0 20px var(--primary-color);
             background: var(--primary-color);
             color: var(--background);
+            transform: translateY(-3px);
         }
 
         /* Hero Section */
@@ -95,58 +140,40 @@
             transform: translateY(-50px);
         }
 
-        .glitch {
+        .typing-text {
             font-size: 5rem;
             font-weight: bold;
+            margin-bottom: 1rem;
             position: relative;
-            text-shadow: 0.05em 0 0 var(--primary-color),
-                        -0.05em -0.025em 0 var(--secondary-color),
-                        -0.025em 0.05em 0 #ff0000;
-            animation: glitch 500ms infinite;
+            display: inline-block;
         }
 
-        @keyframes glitch {
-            0% {
-                text-shadow: 0.05em 0 0 var(--primary-color),
-                            -0.05em -0.025em 0 var(--secondary-color),
-                            -0.025em 0.05em 0 #ff0000;
-            }
-            14% {
-                text-shadow: 0.05em 0 0 var(--primary-color),
-                            -0.05em -0.025em 0 var(--secondary-color),
-                            -0.025em 0.05em 0 #ff0000;
-            }
-            15% {
-                text-shadow: -0.05em -0.025em 0 var(--primary-color),
-                            0.025em 0.025em 0 var(--secondary-color),
-                            -0.05em -0.05em 0 #ff0000;
-            }
-            49% {
-                text-shadow: -0.05em -0.025em 0 var(--primary-color),
-                            0.025em 0.025em 0 var(--secondary-color),
-                            -0.05em -0.05em 0 #ff0000;
-            }
-            50% {
-                text-shadow: 0.025em 0.05em 0 var(--primary-color),
-                            0.05em 0 0 var(--secondary-color),
-                            0 -0.05em 0 #ff0000;
-            }
-            99% {
-                text-shadow: 0.025em 0.05em 0 var(--primary-color),
-                            0.05em 0 0 var(--secondary-color),
-                            0 -0.05em 0 #ff0000;
-            }
-            100% {
-                text-shadow: -0.025em 0 0 var(--primary-color),
-                            -0.025em -0.025em 0 var(--secondary-color),
-                            -0.025em -0.05em 0 #ff0000;
-            }
+        .typing-text::after {
+            content: '|';
+            position: absolute;
+            right: -15px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .subtitle {
             font-size: 1.5rem;
             margin: 1rem 0;
-            opacity: 0.8;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-button {
@@ -157,11 +184,32 @@
             border-radius: 30px;
             color: var(--background);
             cursor: none;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: scale(1.1);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
         }
 
         /* Floating Cards */
@@ -182,11 +230,36 @@
             transform-style: preserve-3d;
             transform: perspective(1000px);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            border-color: var(--primary-color);
         }
 
         /* Custom Cursor */
@@ -198,6 +271,7 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            mix-blend-mode: difference;
         }
 
         .cursor-follower {
@@ -208,15 +282,26 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            mix-blend-mode: difference;
         }
 
-        /* Responsive Design */
+        /* Time Display */
+        .time-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
         @media (max-width: 768px) {
             .menu-items {
                 display: none;
             }
             
-            .glitch {
+            .typing-text {
                 font-size: 3rem;
             }
             
@@ -230,58 +315,75 @@
     <div class="container">
         <nav class="nav-bar">
             <div class="logo">
-                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png">
+                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
+                <div class="logo-text">SBP359</div>
             </div>
             <div class="menu-items">
                 <a href="#" class="glow-button">Home</a>
-                <a href="#" class="glow-button">About</a>
-                <a href="#" class="glow-button">Projects</a>
-                <a href="#" class="glow-button">Contact</a>
+                <a href="#projects" class="glow-button">Projects</a>
+                <a href="#about" class="glow-button">About</a>
+                <a href="#contact" class="glow-button">Contact</a>
             </div>
         </nav>
 
         <div class="hero">
             <div class="hero-content">
-                <h1 class="glitch" data-text="Welcome">Welcome</h1>
-                <p class="subtitle">To Something Extraordinary</p>
-                <button class="cta-button">Explore Now</button>
+                <h1 class="typing-text"></h1>
+                <p class="subtitle">Crafting Digital Excellence</p>
+                <a href="https://github.com/SBP359" class="cta-button" target="_blank">Explore My GitHub</a>
             </div>
         </div>
 
         <div class="floating-cards">
             <div class="card" data-tilt>
-                <h3>Amazing Feature</h3>
-                <p>Discover something incredible</p>
+                <h3>Code Wizard</h3>
+                <p>Creating magic with code</p>
             </div>
             <div class="card" data-tilt>
-                <h3>Cool Stuff</h3>
-                <p>Experience the magic</p>
+                <h3>Innovation Hub</h3>
+                <p>Building the future</p>
             </div>
             <div class="card" data-tilt>
-                <h3>Awesome Things</h3>
-                <p>Be part of the future</p>
+                <h3>Digital Artist</h3>
+                <p>Designing experiences</p>
             </div>
         </div>
     </div>
 
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
+    <div class="time-display"></div>
 
     <script>
-        // Custom cursor
+        // Typing effect
+        const text = "Welcome to My World";
+        const typingText = document.querySelector('.typing-text');
+        let charIndex = 0;
+
+        function type() {
+            if(charIndex < text.length) {
+                typingText.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
+            setTimeout(type, 1000);
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
             
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
-            });
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
         });
 
         // Parallax effect for cards
@@ -293,21 +395,23 @@
                 
                 card.style.transform = `perspective(1000px) 
                     rotateY(${(x - rect.width / 2) / 20}deg) 
-                    rotateX(${-(y - rect.height / 2) / 20}deg)`;
+                    rotateX(${-(y - rect.height / 2) / 20}deg)
+                    translateY(-10px)`;
             });
         });
 
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        // Live time update
+        function updateTime() {
+            const timeDisplay = document.querySelector('.time-display');
+            const now = new Date();
+            const utcString = now.toISOString().slice(0, 19).replace('T', ' ');
+            timeDisplay.textContent = `UTC: ${utcString}`;
+        }
 
-        // Create canvas for particles
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Particle system
         const canvas = document.createElement('canvas');
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
@@ -316,7 +420,6 @@
         document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
-        // Set canvas size
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -324,14 +427,14 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Particle class
         class Particle {
             constructor() {
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
-                this.size = Math.random() * 5 + 1;
+                this.size = Math.random() * 3 + 1;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
+                this.color = `hsl(${Math.random() * 60 + 120}, 100%, 50%)`;
             }
 
             update() {
@@ -341,24 +444,24 @@
                 if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
                 if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
             }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        // Create particles
-        const particles = [];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
-        }
+        const particles = Array.from({ length: 50 }, () => new Particle());
 
-        // Animate particles
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             particles.forEach(particle => {
-                ctx.fillStyle = '#00ff88';
-                ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                ctx.fill();
                 particle.update();
+                particle.draw();
             });
             
             requestAnimationFrame(animate);
