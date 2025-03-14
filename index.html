@@ -1,14 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome Website</title>
+    <title>SBP359 | Awesome Portfolio</title>
+    <!-- Adding Typed.js for typing effects -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Adding AOS for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         :root {
             --primary-color: #00ff88;
             --secondary-color: #0066ff;
+            --accent-color: #ff3366;
             --background: #0a0a0a;
             --text-color: #ffffff;
         }
@@ -32,7 +37,7 @@
             min-height: 100vh;
         }
 
-        /* Navigation Bar */
+        /* Enhanced Navigation Bar */
         .nav-bar {
             padding: 1.5rem;
             display: flex;
@@ -42,6 +47,7 @@
             width: 100%;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.8);
         }
 
         .logo {
@@ -53,6 +59,7 @@
         .logo img {
             height: 40px;
             width: auto;
+            filter: drop-shadow(0 0 10px var(--primary-color));
         }
 
         .logo-text {
@@ -63,93 +70,132 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .menu-items {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .glow-button {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .glow-button:hover {
-            box-shadow: 0 0 20px var(--primary-color);
-            background: var(--primary-color);
-            color: var(--background);
-        }
-
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 0%,
+                rgba(0, 255, 136, 0.1) 50%,
+                transparent 100%);
+            animation: shine 10s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
         }
 
         .hero-content {
-            transform: translateY(-50px);
+            position: relative;
+            z-index: 2;
         }
 
-        .glitch {
+        .typed-text {
             font-size: 5rem;
             font-weight: bold;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* GitHub Stats Section */
+        .github-stats {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Repository Cards */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .repo-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
             position: relative;
-            text-shadow: 0.05em 0 0 var(--primary-color),
-                        -0.05em -0.025em 0 var(--secondary-color),
-                        -0.025em 0.05em 0 #ff0000;
-            animation: glitch 500ms infinite;
+            overflow: hidden;
         }
 
-        @keyframes glitch {
-            0% {
-                text-shadow: 0.05em 0 0 var(--primary-color),
-                            -0.05em -0.025em 0 var(--secondary-color),
-                            -0.025em 0.05em 0 #ff0000;
-            }
-            14% {
-                text-shadow: 0.05em 0 0 var(--primary-color),
-                            -0.05em -0.025em 0 var(--secondary-color),
-                            -0.025em 0.05em 0 #ff0000;
-            }
-            15% {
-                text-shadow: -0.05em -0.025em 0 var(--primary-color),
-                            0.025em 0.025em 0 var(--secondary-color),
-                            -0.05em -0.05em 0 #ff0000;
-            }
-            49% {
-                text-shadow: -0.05em -0.025em 0 var(--primary-color),
-                            0.025em 0.025em 0 var(--secondary-color),
-                            -0.05em -0.05em 0 #ff0000;
-            }
-            50% {
-                text-shadow: 0.025em 0.05em 0 var(--primary-color),
-                            0.05em 0 0 var(--secondary-color),
-                            0 -0.05em 0 #ff0000;
-            }
-            99% {
-                text-shadow: 0.025em 0.05em 0 var(--primary-color),
-                            0.05em 0 0 var(--secondary-color),
-                            0 -0.05em 0 #ff0000;
-            }
-            100% {
-                text-shadow: -0.025em 0 0 var(--primary-color),
-                            -0.025em -0.025em 0 var(--secondary-color),
-                            -0.025em -0.05em 0 #ff0000;
-            }
+        .repo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(0, 255, 136, 0.1), 
+                transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
         }
 
-        .subtitle {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            opacity: 0.8;
+        .repo-card:hover::before {
+            transform: translateX(100%);
         }
 
+        .repo-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .repo-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            color: #888;
+        }
+
+        /* Enhanced Button Styles */
         .cta-button {
             padding: 1rem 2rem;
             font-size: 1.2rem;
@@ -157,37 +203,38 @@
             border: none;
             border-radius: 30px;
             color: var(--background);
-            cursor: none;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: scale(1.1);
-        }
-
-        /* Floating Cards */
-        .floating-cards {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 4rem 2rem;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            width: 300px;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
 
         /* Custom Cursor */
@@ -199,6 +246,8 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: all 0.1s ease;
+            transform-origin: center center;
         }
 
         .cursor-follower {
@@ -209,59 +258,78 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: all 0.2s ease;
         }
 
-        /* Responsive Design */
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-animation {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
-            .menu-items {
-                display: none;
+            .typed-text {
+                font-size: 2.5rem;
             }
             
-            .glitch {
-                font-size: 3rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
+            .stats-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <div class="loading">
+        <div class="loading-animation"></div>
+    </div>
+
     <div class="container">
         <nav class="nav-bar">
             <div class="logo">
-                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png">
-                <div class="logo-text">Welcome Fellas!</div>
-            </div>
-            <div class="menu-items">
-                <a href="#" class="glow-button">Home</a>
-                <a href="#" class="glow-button">About</a>
-                <a href="#" class="glow-button">Projects</a>
-                <a href="#" class="glow-button">Contact</a>
+                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
+                <div class="logo-text">SBP359</div>
             </div>
         </nav>
 
         <div class="hero">
             <div class="hero-content">
-                <h1 class="glitch" data-text="Welcome">Welcome</h1>
-                <p class="subtitle">To Something Extraordinary</p>
-                <button class="cta-button">Explore Now</button>
+                <div class="typed-text"></div>
+                <a href="https://github.com/SBP359" target="_blank" class="cta-button">Explore My GitHub</a>
             </div>
         </div>
 
-        <div class="floating-cards">
-            <div class="card" data-tilt>
-                <h3>Amazing Feature</h3>
-                <p>Discover something incredible</p>
+        <div class="github-stats" data-aos="fade-up">
+            <h2>GitHub Stats</h2>
+            <div class="stats-container" id="stats-container">
+                <!-- Stats will be populated by JavaScript -->
             </div>
-            <div class="card" data-tilt>
-                <h3>Cool Stuff</h3>
-                <p>Experience the magic</p>
-            </div>
-            <div class="card" data-tilt>
-                <h3>Awesome Things</h3>
-                <p>Be part of the future</p>
+        </div>
+
+        <div class="repo-section" data-aos="fade-up">
+            <h2 style="text-align: center; margin: 2rem 0;">Featured Repositories</h2>
+            <div class="repo-grid" id="repo-grid">
+                <!-- Repos will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -270,46 +338,103 @@
     <div class="cursor-follower"></div>
 
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Typing effect
+        new Typed('.typed-text', {
+            strings: [
+                'Welcome to My World',
+                'I am SBP359',
+                'Explore My Work',
+                'Let\'s Create Something Amazing'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
         // Custom cursor
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
-            
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
-            });
-        });
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
 
-        // Parallax effect for cards
         document.addEventListener('mousemove', (e) => {
-            document.querySelectorAll('.card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                card.style.transform = `perspective(1000px) 
-                    rotateY(${(x - rect.width / 2) / 20}deg) 
-                    rotateX(${-(y - rect.height / 2) / 20}deg)`;
-            });
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
         });
 
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
         });
 
-        // Create canvas for particles
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+        });
+
+        // Fetch GitHub Data
+        async function fetchGitHubData() {
+            try {
+                const username = 'SBP359';
+                const userResponse = await fetch(`https://api.github.com/users/${username}`);
+                const userData = await userResponse.json();
+
+                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+                const reposData = await reposResponse.json();
+
+                // Update Stats
+                const statsContainer = document.getElementById('stats-container');
+                statsContainer.innerHTML = `
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="stat-number">${userData.public_repos}</div>
+                        <p>Repositories</p>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-number">${userData.followers}</div>
+                        <p>Followers</p>
+                    </div>
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-number">${userData.following}</div>
+                        <p>Following</p>
+                    </div>
+                `;
+
+                // Update Repos
+                const repoGrid = document.getElementById('repo-grid');
+                repoGrid.innerHTML = reposData.map((repo, index) => `
+                    <div class="repo-card" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <h3>${repo.name}</h3>
+                        <p>${repo.description || 'No description available'}</p>
+                        <div class="repo-stats">
+                            <span>⭐ ${repo.stargazers_count}</span>
+                            <span>🔄 ${repo.forks_count}</span>
+                        </div>
+                        <a href="${repo.html_url}" target="_blank" class="cta-button" style="margin-top: 1rem;">View Repo</a>
+                    </div>
+                `).join('');
+
+                // Hide loading screen
+                document.querySelector('.loading').style.display = 'none';
+
+            } catch (error) {
+                console.error('Error fetching GitHub data:', error);
+                document.querySelector('.loading').style.display = 'none';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchGitHubData();
+        });
+
+        // Particle system
         const canvas = document.createElement('canvas');
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
@@ -318,7 +443,6 @@
         document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
-        // Set canvas size
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -326,14 +450,14 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Particle class
         class Particle {
             constructor() {
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
-                this.size = Math.random() * 5 + 1;
+                this.size = Math.random() * 3 + 1;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
+                this.color = `hsl(${Math.random() * 60 + 120}, 100%, 50%)`;
             }
 
             update() {
@@ -341,31 +465,4 @@
                 this.y += this.speedY;
 
                 if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
-                if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
-            }
-        }
-
-        // Create particles
-        const particles = [];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
-        }
-
-        // Animate particles
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                ctx.fillStyle = '#00ff88';
-                ctx.beginPath();
-                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                ctx.fill();
-                particle.update();
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
-</body>
-</html>
+                if (this.y > window.innerHeight || this.
