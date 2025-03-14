@@ -1,1 +1,371 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Website</title>
+    <style>
+        :root {
+            --primary-color: #00ff88;
+            --secondary-color: #0066ff;
+            --background: #0a0a0a;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .glow-button {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 20px var(--primary-color);
+            background: var(--primary-color);
+            color: var(--background);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            transform: translateY(-50px);
+        }
+
+        .glitch {
+            font-size: 5rem;
+            font-weight: bold;
+            position: relative;
+            text-shadow: 0.05em 0 0 var(--primary-color),
+                        -0.05em -0.025em 0 var(--secondary-color),
+                        -0.025em 0.05em 0 #ff0000;
+            animation: glitch 500ms infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--primary-color),
+                            -0.05em -0.025em 0 var(--secondary-color),
+                            -0.025em 0.05em 0 #ff0000;
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--primary-color),
+                            -0.05em -0.025em 0 var(--secondary-color),
+                            -0.025em 0.05em 0 #ff0000;
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--primary-color),
+                            0.025em 0.025em 0 var(--secondary-color),
+                            -0.05em -0.05em 0 #ff0000;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--primary-color),
+                            0.025em 0.025em 0 var(--secondary-color),
+                            -0.05em -0.05em 0 #ff0000;
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--primary-color),
+                            0.05em 0 0 var(--secondary-color),
+                            0 -0.05em 0 #ff0000;
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--primary-color),
+                            0.05em 0 0 var(--secondary-color),
+                            0 -0.05em 0 #ff0000;
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--primary-color),
+                            -0.025em -0.025em 0 var(--secondary-color),
+                            -0.025em -0.05em 0 #ff0000;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 30px;
+            color: var(--background);
+            cursor: none;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Floating Cards */
+        .floating-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 300px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-items {
+                display: none;
+            }
+            
+            .glitch {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="https://github.com/SBP359/SBP359/blob/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
+                <div class="logo-text">AWESOME</div>
+            </div>
+            <div class="menu-items">
+                <a href="#" class="glow-button">Home</a>
+                <a href="#" class="glow-button">About</a>
+                <a href="#" class="glow-button">Projects</a>
+                <a href="#" class="glow-button">Contact</a>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Welcome">Welcome</h1>
+                <p class="subtitle">To Something Extraordinary</p>
+                <button class="cta-button">Explore Now</button>
+            </div>
+        </div>
+
+        <div class="floating-cards">
+            <div class="card" data-tilt>
+                <h3>Amazing Feature</h3>
+                <p>Discover something incredible</p>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Cool Stuff</h3>
+                <p>Experience the magic</p>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Awesome Things</h3>
+                <p>Be part of the future</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <script>
+        // Custom cursor
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX + 'px';
+                    cursorFollower.style.top = e.clientY + 'px';
+                }, 100);
+            });
+        });
+
+        // Parallax effect for cards
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `perspective(1000px) 
+                    rotateY(${(x - rect.width / 2) / 20}deg) 
+                    rotateX(${-(y - rect.height / 2) / 20}deg)`;
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Create canvas for particles
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * window.innerWidth;
+                this.y = Math.random() * window.innerHeight;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
+                if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
+            }
+        }
+
+        // Create particles
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animate particles
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                ctx.fillStyle = '#00ff88';
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+                particle.update();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
