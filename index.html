@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBP359 | Awesome Portfolio</title>
+    <title>SBP359 | Portfolio</title>
     <style>
         :root {
             --primary-color: #00ff88;
@@ -20,15 +20,9 @@
         }
 
         @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body {
@@ -68,6 +62,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            text-decoration: none;
         }
 
         .logo img {
@@ -107,12 +102,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: 0.5s;
         }
 
@@ -134,10 +124,12 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
         }
 
         .hero-content {
             transform: translateY(-50px);
+            z-index: 2;
         }
 
         .typing-text {
@@ -146,6 +138,8 @@
             margin-bottom: 1rem;
             position: relative;
             display: inline-block;
+            color: var(--text-color);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
         }
 
         .typing-text::after {
@@ -176,6 +170,13 @@
             }
         }
 
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
         .cta-button {
             padding: 1rem 2rem;
             font-size: 1.2rem;
@@ -188,8 +189,6 @@
             position: relative;
             overflow: hidden;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 2rem;
         }
 
         .cta-button::before {
@@ -242,12 +241,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transform: translateX(-100%);
             transition: 0.5s;
         }
@@ -260,6 +254,16 @@
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
             border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-color);
+            opacity: 0.8;
         }
 
         /* Custom Cursor */
@@ -285,6 +289,24 @@
             mix-blend-mode: difference;
         }
 
+        /* Contact Email */
+        .contact-email {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .contact-email:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+            transform: translateY(-2px);
+        }
+
         /* Time Display */
         .time-display {
             position: fixed;
@@ -294,6 +316,7 @@
             font-size: 1.2rem;
             color: var(--primary-color);
             text-shadow: 0 0 10px var(--primary-color);
+            z-index: 1000;
         }
 
         @media (max-width: 768px) {
@@ -308,21 +331,29 @@
             .subtitle {
                 font-size: 1.2rem;
             }
+
+            .contact-email {
+                font-size: 1rem;
+            }
+
+            .time-display {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <nav class="nav-bar">
-            <div class="logo">
+            <a href="#" class="logo">
                 <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
                 <div class="logo-text">SBP359</div>
-            </div>
+            </a>
             <div class="menu-items">
                 <a href="#" class="glow-button">Home</a>
-                <a href="#projects" class="glow-button">Projects</a>
-                <a href="#about" class="glow-button">About</a>
-                <a href="#contact" class="glow-button">Contact</a>
+                <a href="https://github.com/SBP359?tab=repositories" class="glow-button" target="_blank">Projects</a>
+                <a href="about.html" class="glow-button">About</a>
+                <a href="mailto:sachinbp359@gmail.com" class="glow-button">Contact</a>
             </div>
         </nav>
 
@@ -330,7 +361,10 @@
             <div class="hero-content">
                 <h1 class="typing-text"></h1>
                 <p class="subtitle">Crafting Digital Excellence</p>
-                <a href="https://github.com/SBP359" class="cta-button" target="_blank">Explore My GitHub</a>
+                <div class="cta-buttons">
+                    <a href="https://github.com/SBP359" class="cta-button" target="_blank">Explore My GitHub</a>
+                    <a href="about.html" class="cta-button">About Me</a>
+                </div>
             </div>
         </div>
 
@@ -350,9 +384,10 @@
         </div>
     </div>
 
+    <a href="mailto:sachinbp359@gmail.com" class="contact-email">sachinbp359@gmail.com</a>
+    <div class="time-display"></div>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
-    <div class="time-display"></div>
 
     <script>
         // Typing effect
@@ -441,32 +476,4 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
-                if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        const particles = Array.from({ length: 50 }, () => new Particle());
-
-        function animate() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
-</body>
-</html>
+                if (this.x > window.
