@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | SBP359</title>
+    <style>
+        :root {
+            --primary-color: #00ff88;
+            --secondary-color: #0066ff;
+            --background: #0a0a0a;
+            --text-color: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(45deg, var(--background), #1a1a1a);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-bar {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .back-button {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+            color: var(--background);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Add your content here after you write your about me */
+        .placeholder-text {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
+        </div>
+        <a href="index.html" class="back-button">Back to Home</a>
+    </nav>
+
+    <div class="about-content">
+        <h1>About Me</h1>
+        <p class="placeholder-text">
+            [Your about me content will go here]
+        </p>
+    </div>
+</body>
+</html>
