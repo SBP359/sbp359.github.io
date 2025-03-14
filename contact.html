@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact SBP359 - Let's create something amazing together">
+    <meta name="theme-color" content="#0a0a0a">
     <title>Contact | SBP359</title>
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png">
     <style>
         :root {
             --primary-color: #00ff88;
@@ -39,7 +42,6 @@
             cursor: none;
         }
 
-        /* Navigation Bar */
         .nav-bar {
             padding: 1.5rem;
             display: flex;
@@ -63,12 +65,19 @@
         .logo img {
             height: 40px;
             width: auto;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .logo-text {
             font-size: 2rem;
             font-weight: bold;
             color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
         }
 
         .back-button {
@@ -86,7 +95,6 @@
             box-shadow: 0 0 20px var(--primary-color);
         }
 
-        /* Contact Container */
         .contact-container {
             min-height: 100vh;
             display: flex;
@@ -105,12 +113,8 @@
             border: 1px solid rgba(0, 255, 136, 0.2);
             transform-style: preserve-3d;
             transform: perspective(1000px);
-            animation: floatCard 6s ease-in-out infinite;
-        }
-
-        @keyframes floatCard {
-            0%, 100% { transform: perspective(1000px) translateY(0) rotateX(0); }
-            50% { transform: perspective(1000px) translateY(-20px) rotateX(5deg); }
+            transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .contact-header {
@@ -163,11 +167,6 @@
             transform: translateY(-5px) scale(1.02);
         }
 
-        .contact-item.youtube .contact-icon {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff0000;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -187,7 +186,6 @@
 
         .contact-icon {
             font-size: 1.5rem;
-            color: var(--primary-color);
             min-width: 40px;
             height: 40px;
             display: flex;
@@ -195,6 +193,12 @@
             justify-content: center;
             border-radius: 50%;
             background: rgba(0, 255, 136, 0.1);
+            color: var(--primary-color);
+        }
+
+        .contact-item.youtube .contact-icon {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
         }
 
         .contact-info {
@@ -209,21 +213,20 @@
         .contact-info a {
             color: var(--text-color);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             font-size: 1.1rem;
         }
 
         .contact-info p {
             margin-top: 0.5rem;
-            opacity: 0.7;
-            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
         }
 
         .contact-info a:hover {
             color: var(--primary-color);
         }
 
-        /* Custom Cursor */
         .cursor {
             width: 20px;
             height: 20px;
@@ -232,6 +235,8 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: transform 0.3s ease;
+            mix-blend-mode: difference;
         }
 
         .cursor-follower {
@@ -242,9 +247,37 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: all 0.2s ease;
+        }
+
+        .time-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         @media (max-width: 768px) {
+            .cursor, .cursor-follower {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+            
+            a, button {
+                cursor: pointer !important;
+            }
+
             .contact-card {
                 padding: 2rem;
             }
@@ -262,12 +295,22 @@
             .contact-info a {
                 font-size: 1rem;
             }
+
+            .time-display {
+                font-size: 1rem;
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <div id="loading-screen" style="position: fixed; inset: 0; background: var(--background); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div style="color: var(--primary-color); font-size: 1.5rem;">Loading...</div>
+    </div>
+
     <nav class="nav-bar">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
             <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
             <span class="logo-text">SBP359</span>
         </a>
@@ -317,44 +360,78 @@
         </div>
     </div>
 
+    <div class="time-display"></div>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        });
+
         // Custom cursor
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
-        
+        let isMoving = false;
+        let cursorTimeout;
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
+            if (!isMoving) {
+                isMoving = true;
+                cursor.style.display = 'block';
+                cursorFollower.style.display = 'block';
+            }
+
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => {
+                cursorFollower.style.left = `${e.clientX}px`;
+                cursorFollower.style.top = `${e.clientY}px`;
+            }, 50);
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
+        });
+
+        // Show cursor when entering window
+        document.addEventListener('mouseenter', () => {
+            cursor.style.display = 'block';
+            cursorFollower.style.display = 'block';
         });
 
         // Card tilt effect
         const card = document.querySelector('.contact-card');
+        let cardTimeout;
         
         document.addEventListener('mousemove', (e) => {
+            if (!card) return;
+            
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const angleX = (y - centerY) / 30;
-            const angleY = (centerX - x) / 30;
-            
-            card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 30;
+                const angleY = (centerX - x) / 30;
+                
+                clearTimeout(cardTimeout);
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+            }
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-        });
-    </script>
-</body>
-</html>
+            clearTimeout(car
