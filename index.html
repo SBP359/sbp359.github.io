@@ -19,8 +19,32 @@
             box-sizing: border-box;
         }
 
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--primary-color); }
+            50% { box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color); }
+            100% { box-shadow: 0 0 5px var(--primary-color); }
+        }
+
         body {
-            background: var(--background);
+            background: linear-gradient(45deg, 
+                var(--background), 
+                #1a1a1a, 
+                #141414, 
+                var(--background));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             color: var(--text-color);
             font-family: 'Arial', sans-serif;
             overflow-x: hidden;
@@ -30,6 +54,8 @@
         .container {
             width: 100%;
             min-height: 100vh;
+            position: relative;
+            z-index: 1;
         }
 
         /* Navigation Bar */
@@ -41,9 +67,21 @@
             position: fixed;
             width: 100%;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .logo {
@@ -51,18 +89,22 @@
             align-items: center;
             gap: 1rem;
             text-decoration: none;
+            position: relative;
         }
 
         .logo img {
             height: 40px;
             width: auto;
+            animation: float 6s ease-in-out infinite;
         }
 
         .logo-text {
             font-size: 2rem;
             font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
         }
 
         .menu-items {
@@ -76,14 +118,34 @@
             padding: 0.5rem 1.5rem;
             border-radius: 20px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             border: 1px solid var(--primary-color);
             background: transparent;
+            z-index: 1;
+        }
+
+        .glow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .glow-button:hover::before {
+            left: 100%;
         }
 
         .glow-button:hover {
             background: var(--primary-color);
             color: var(--background);
             box-shadow: 0 0 20px var(--primary-color);
+            transform: translateY(-3px);
         }
 
         /* Hero Section */
@@ -93,22 +155,44 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--background) 70%);
+            z-index: -1;
         }
 
         .hero-content {
             transform: translateY(-50px);
+            animation: fadeIn 2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .typing-text {
             font-size: 5rem;
             font-weight: bold;
-            color: var(--text-color);
             margin-bottom: 1rem;
+            position: relative;
             display: inline-block;
+            text-shadow: 0 0 10px var(--primary-color);
         }
 
         .typing-text::after {
             content: '|';
+            position: absolute;
+            right: -15px;
             animation: blink 0.7s infinite;
         }
 
@@ -138,25 +222,46 @@
             gap: 2rem;
             justify-content: center;
             margin-top: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 2.5s;
         }
 
         .cta-button {
             padding: 1rem 2rem;
             font-size: 1.2rem;
-            background: var(--primary-color);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             border: none;
             border-radius: 30px;
             color: var(--background);
-            text-decoration: none;
+            cursor: none;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
+            transform: scale(1.05) translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
         }
 
-        /* Cards */
+        /* Floating Cards */
         .floating-cards {
             display: flex;
             justify-content: center;
@@ -166,19 +271,48 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 20px;
             width: 300px;
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
             border-color: var(--primary-color);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
         }
 
         .card h3 {
@@ -186,11 +320,12 @@
             margin-bottom: 1rem;
         }
 
-        /* Contact Info */
+        /* Contact Email */
         .contact-email {
             position: fixed;
             bottom: 20px;
             left: 20px;
+            font-family: monospace;
             font-size: 1.2rem;
             color: var(--primary-color);
             text-decoration: none;
@@ -200,6 +335,7 @@
 
         .contact-email:hover {
             text-shadow: 0 0 10px var(--primary-color);
+            transform: translateY(-2px);
         }
 
         /* Time Display */
@@ -210,6 +346,8 @@
             font-family: monospace;
             font-size: 1.2rem;
             color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            z-index: 1000;
         }
 
         /* Custom Cursor */
@@ -221,6 +359,8 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.3s ease;
         }
 
         .cursor-follower {
@@ -231,6 +371,7 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+            transition: transform 0.6s ease;
         }
 
         @media (max-width: 768px) {
@@ -244,6 +385,14 @@
             
             .subtitle {
                 font-size: 1.2rem;
+            }
+
+            .contact-email {
+                font-size: 1rem;
+            }
+
+            .time-display {
+                font-size: 1rem;
             }
         }
     </style>
@@ -313,7 +462,7 @@
             setTimeout(type, 1000);
         });
 
-        // Custom cursor
+        // Custom cursor with parallax effect
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
         
@@ -327,15 +476,13 @@
             }, 100);
         });
 
-        // Live time update
-        function updateTime() {
-            const timeDisplay = document.querySelector('.time-display');
-            const now = new Date();
-            timeDisplay.textContent = now.toISOString().slice(0, 19).replace('T', ' ');
-        }
-
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
-</body>
-</html>
+        // Card parallax effect
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `perspective(1000px) 
+                    rotateY(${(x - rect.width / 2) / 20}deg) 
+                    
