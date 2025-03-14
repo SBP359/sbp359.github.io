@@ -401,16 +401,28 @@
             });
         });
 
-        // Live time update
-        function updateTime() {
-            const timeDisplay = document.querySelector('.time-display');
-            const now = new Date();
-            const utcString = now.toISOString().slice(0, 19).replace('T', ' ');
-            timeDisplay.textContent = `UTC: ${utcString}`;
-        }
+function updateTime() {
+    const timeDisplay = document.querySelector('.time-display');
+    const now = new Date();
+    
+    // Add 5 hours and 30 minutes to UTC
+    const istTime = new Date(now.getTime() + (330 * 60000)); // 330 minutes = 5 hours 30 minutes
+    
+    // Format the date and time
+    const year = istTime.getUTCFullYear();
+    const month = String(istTime.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(istTime.getUTCDate()).padStart(2, '0');
+    const hours = String(istTime.getUTCHours()).padStart(2, '0');
+    const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(istTime.getUTCSeconds()).padStart(2, '0');
+    
+    const istString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    timeDisplay.textContent = `IST: ${istString}`;
+}
 
-        setInterval(updateTime, 1000);
-        updateTime();
+// Update time every second
+setInterval(updateTime, 1000);
+updateTime(); // 
 
         // Particle system
         const canvas = document.createElement('canvas');
