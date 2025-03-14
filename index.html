@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBP359 | Awesome Portfolio</title>
-    <!-- Adding Typed.js for typing effects -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    <!-- Adding AOS for scroll animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>Awesome Website</title>
     <style>
         :root {
             --primary-color: #00ff88;
             --secondary-color: #0066ff;
-            --accent-color: #ff3366;
             --background: #0a0a0a;
             --text-color: #ffffff;
         }
@@ -37,7 +31,7 @@
             min-height: 100vh;
         }
 
-        /* Enhanced Navigation Bar */
+        /* Navigation Bar */
         .nav-bar {
             padding: 1.5rem;
             display: flex;
@@ -47,7 +41,6 @@
             width: 100%;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            background: rgba(10, 10, 10, 0.8);
         }
 
         .logo {
@@ -59,7 +52,6 @@
         .logo img {
             height: 40px;
             width: auto;
-            filter: drop-shadow(0 0 10px var(--primary-color));
         }
 
         .logo-text {
@@ -70,101 +62,93 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Enhanced Hero Section */
+        .menu-items {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .glow-button {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 20px var(--primary-color);
+            background: var(--primary-color);
+            color: var(--background);
+        }
+
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 0%,
-                rgba(0, 255, 136, 0.1) 50%,
-                transparent 100%);
-            animation: shine 10s infinite linear;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
-            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
         }
 
         .hero-content {
-            position: relative;
-            z-index: 2;
+            transform: translateY(-50px);
         }
 
-        .typed-text {
+        .glitch {
             font-size: 5rem;
             font-weight: bold;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* Cool Cards Section */
-        .cool-section {
-            padding: 4rem 2rem;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .cool-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            text-shadow: 0.05em 0 0 var(--primary-color),
+                        -0.05em -0.025em 0 var(--secondary-color),
+                        -0.025em 0.05em 0 #ff0000;
+            animation: glitch 500ms infinite;
         }
 
-        .cool-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--primary-color),
+                            -0.05em -0.025em 0 var(--secondary-color),
+                            -0.025em 0.05em 0 #ff0000;
+            }
+            14% {
+                text-shadow: 0.05em 0 0 var(--primary-color),
+                            -0.05em -0.025em 0 var(--secondary-color),
+                            -0.025em 0.05em 0 #ff0000;
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--primary-color),
+                            0.025em 0.025em 0 var(--secondary-color),
+                            -0.05em -0.05em 0 #ff0000;
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--primary-color),
+                            0.025em 0.025em 0 var(--secondary-color),
+                            -0.05em -0.05em 0 #ff0000;
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--primary-color),
+                            0.05em 0 0 var(--secondary-color),
+                            0 -0.05em 0 #ff0000;
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--primary-color),
+                            0.05em 0 0 var(--secondary-color),
+                            0 -0.05em 0 #ff0000;
+            }
+            100% {
+                text-shadow: -0.025em 0 0 var(--primary-color),
+                            -0.025em -0.025em 0 var(--secondary-color),
+                            -0.025em -0.05em 0 #ff0000;
+            }
         }
 
-        .cool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .cool-card:hover::before {
-            left: 100%;
-        }
-
-        .card-title {
-            color: var(--primary-color);
+        .subtitle {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
+            opacity: 0.8;
         }
 
-        /* Enhanced Button Styles */
         .cta-button {
             padding: 1rem 2rem;
             font-size: 1.2rem;
@@ -172,38 +156,37 @@
             border: none;
             border-radius: 30px;
             color: var(--background);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
+            cursor: none;
+            transition: transform 0.3s ease;
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Floating Cards */
+        .floating-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 300px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
         }
 
         /* Custom Cursor */
@@ -215,8 +198,6 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.1s ease;
-            transform-origin: center center;
         }
 
         .cursor-follower {
@@ -227,28 +208,21 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.2s ease;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .typed-text {
-                font-size: 2.5rem;
+            .menu-items {
+                display: none;
             }
             
-            .cards-container {
-                grid-template-columns: 1fr;
+            .glitch {
+                font-size: 3rem;
             }
-        }
-
-        .date-time {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-family: monospace;
-            font-size: 1rem;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
-            z-index: 1000;
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -256,101 +230,85 @@
     <div class="container">
         <nav class="nav-bar">
             <div class="logo">
-                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
-                <div class="logo-text">SBP359</div>
+                <img src="https://github.com/SBP359/SBP359/blob/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
+                <div class="logo-text">AWESOME</div>
+            </div>
+            <div class="menu-items">
+                <a href="#" class="glow-button">Home</a>
+                <a href="#" class="glow-button">About</a>
+                <a href="#" class="glow-button">Projects</a>
+                <a href="#" class="glow-button">Contact</a>
             </div>
         </nav>
 
         <div class="hero">
             <div class="hero-content">
-                <div class="typed-text"></div>
-                <a href="https://github.com/SBP359" target="_blank" class="cta-button">Explore My GitHub</a>
+                <h1 class="glitch" data-text="Welcome">Welcome</h1>
+                <p class="subtitle">To Something Extraordinary</p>
+                <button class="cta-button">Explore Now</button>
             </div>
         </div>
 
-        <div class="cool-section">
-            <div class="cards-container">
-                <div class="cool-card" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="card-title">Creative Development</h3>
-                    <p>Building innovative solutions with cutting-edge technology</p>
-                    <a href="https://github.com/SBP359?tab=repositories" target="_blank" class="cta-button">View Projects</a>
-                </div>
-                <div class="cool-card" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="card-title">Open Source</h3>
-                    <p>Contributing to the community with open source projects</p>
-                    <a href="https://github.com/SBP359?tab=stars" target="_blank" class="cta-button">Starred Repos</a>
-                </div>
-                <div class="cool-card" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="card-title">Collaboration</h3>
-                    <p>Let's work together on amazing projects</p>
-                    <a href="https://github.com/SBP359?tab=followers" target="_blank" class="cta-button">Connect</a>
-                </div>
+        <div class="floating-cards">
+            <div class="card" data-tilt>
+                <h3>Amazing Feature</h3>
+                <p>Discover something incredible</p>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Cool Stuff</h3>
+                <p>Experience the magic</p>
+            </div>
+            <div class="card" data-tilt>
+                <h3>Awesome Things</h3>
+                <p>Be part of the future</p>
             </div>
         </div>
     </div>
 
-    <div class="date-time" id="datetime"></div>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Typing effect
-        new Typed('.typed-text', {
-            strings: [
-                'Welcome to My World',
-                'I am SBP359',
-                'Explore My Work',
-                'Let\'s Create Something Amazing'
-            ],
-            typeSpeed: 50,
-            backSpeed: 30,
-            loop: true
-        });
-
         // Custom cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
             
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX + 'px';
+                    cursorFollower.style.top = e.clientY + 'px';
+                }, 100);
+            });
         });
 
-        document.addEventListener('mousedown', () => {
-            cursor.style.transform = 'scale(0.8)';
+        // Parallax effect for cards
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `perspective(1000px) 
+                    rotateY(${(x - rect.width / 2) / 20}deg) 
+                    rotateX(${-(y - rect.height / 2) / 20}deg)`;
+            });
         });
 
-        document.addEventListener('mouseup', () => {
-            cursor.style.transform = 'scale(1)';
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-        // Update datetime
-        function updateDateTime() {
-            const now = new Date();
-            const formatted = now.getUTCFullYear() + '-' + 
-                            String(now.getUTCMonth() + 1).padStart(2, '0') + '-' +
-                            String(now.getUTCDate()).padStart(2, '0') + ' ' +
-                            String(now.getUTCHours()).padStart(2, '0') + ':' +
-                            String(now.getUTCMinutes()).padStart(2, '0') + ':' +
-                            String(now.getUTCSeconds()).padStart(2, '0');
-            document.getElementById('datetime').textContent = formatted;
-        }
-
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-
-        // Particle system
+        // Create canvas for particles
         const canvas = document.createElement('canvas');
         canvas.style.position = 'fixed';
         canvas.style.top = '0';
@@ -359,6 +317,7 @@
         document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
+        // Set canvas size
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -366,14 +325,14 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
+        // Particle class
         class Particle {
             constructor() {
                 this.x = Math.random() * window.innerWidth;
                 this.y = Math.random() * window.innerHeight;
-                this.size = Math.random() * 3 + 1;
+                this.size = Math.random() * 5 + 1;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
-                this.color = `hsl(${Math.random() * 60 + 120}, 100%, 50%)`;
             }
 
             update() {
@@ -383,23 +342,26 @@
                 if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
                 if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
             }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
         }
 
-        const particles = Array(50).fill().map(() => new Particle());
+        // Create particles
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
 
+        // Animate particles
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
             particles.forEach(particle => {
+                ctx.fillStyle = '#00ff88';
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
                 particle.update();
-                particle.draw();
             });
+            
             requestAnimationFrame(animate);
         }
         animate();
