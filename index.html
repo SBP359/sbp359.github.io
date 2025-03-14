@@ -44,78 +44,59 @@
             min-height: 100vh;
         }
 
-        /* Navigation Bar */
-        .nav-bar {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-        }
+/* Navigation Bar */
+.nav-bar {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+}
 
-        .logo img {
-            height: 40px;
-            width: auto;
-            filter: drop-shadow(0 0 10px var(--primary-color));
-        }
+.logo img {
+    height: 40px;
+    width: auto;
+}
 
-        .logo-text {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-        }
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color); /* Fallback color */
+    background: -webkit-linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-        .menu-items {
-            display: flex;
-            gap: 2rem;
-        }
+.glow-button {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+}
 
-        .glow-button {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glow-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .glow-button:hover::before {
-            left: 100%;
-        }
-
-        .glow-button:hover {
-            box-shadow: 0 0 20px var(--primary-color);
-            background: var(--primary-color);
-            color: var(--background);
-            transform: translateY(-3px);
-        }
+.glow-button:hover {
+    box-shadow: 0 0 20px var(--primary-color);
+    background: var(--primary-color);
+    color: var(--background);
+    transform: translateY(-3px);
+}
 
         /* Hero Section */
         .hero {
