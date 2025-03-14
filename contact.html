@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact SBP359 - Let's create something amazing together">
-    <meta name="theme-color" content="#0a0a0a">
     <title>Contact | SBP359</title>
-    <link rel="preload" as="image" href="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png">
     <style>
         :root {
             --primary-color: #00ff88;
-            --secondary-color: #0066ff;
-            --accent-color: #ff3366;
             --background: #0a0a0a;
             --text-color: #ffffff;
         }
@@ -22,37 +17,28 @@
             box-sizing: border-box;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         body {
-            background: linear-gradient(45deg, 
-                var(--background), 
-                #1a1a1a, 
-                #141414, 
-                var(--background));
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            background: var(--background);
             color: var(--text-color);
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
-            cursor: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
         }
 
         .nav-bar {
-            padding: 1.5rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
         }
 
         .logo {
@@ -65,144 +51,82 @@
         .logo img {
             height: 40px;
             width: auto;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .logo-text {
-            font-size: 2rem;
-            font-weight: bold;
             color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .back-button {
             color: var(--text-color);
             text-decoration: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
             border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            transition: 0.3s;
         }
 
         .back-button:hover {
             background: var(--primary-color);
             color: var(--background);
-            box-shadow: 0 0 20px var(--primary-color);
         }
 
         .contact-container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .contact-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: transform 0.3s ease;
-            will-change: transform;
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
         }
 
         .contact-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .contact-header h1 {
             font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 1rem;
-            animation: glow 3s ease-in-out infinite;
         }
 
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 5px var(--primary-color); }
-            50% { text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color); }
-        }
-
-        .contact-methods {
+        .contact-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            padding: 1rem;
         }
 
         .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: 0.3s;
+            border: 1px solid transparent;
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1.5rem;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease forwards;
-            opacity: 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .contact-item:nth-child(1) { animation-delay: 0.2s; }
-        .contact-item:nth-child(2) { animation-delay: 0.4s; }
-        .contact-item:nth-child(3) { animation-delay: 0.6s; }
-        .contact-item:nth-child(4) { animation-delay: 0.8s; }
-
-        .contact-item.youtube {
-            background: linear-gradient(145deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .contact-item.youtube:hover {
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-            transform: translateY(-5px) scale(1.02);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .contact-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
         }
 
         .contact-icon {
-            font-size: 1.5rem;
-            min-width: 40px;
+            width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary-color);
         }
 
-        .contact-item.youtube .contact-icon {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff0000;
-        }
-
-        .contact-info {
-            flex-grow: 1;
+        .contact-icon img {
+            width: 30px;
+            height: 30px;
+            filter: invert(1);
         }
 
         .contact-info h3 {
@@ -210,105 +134,19 @@
             margin-bottom: 0.5rem;
         }
 
-        .contact-info a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
         .contact-info p {
-            margin-top: 0.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.4;
-        }
-
-        .contact-info a:hover {
-            color: var(--primary-color);
-        }
-
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.3s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.2s ease;
-        }
-
-        .time-display {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.5);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            .cursor, .cursor-follower {
-                display: none;
-            }
-            
-            body {
-                cursor: auto;
-            }
-            
-            a, button {
-                cursor: pointer !important;
-            }
-
-            .contact-card {
-                padding: 2rem;
-            }
-
-            .contact-header h1 {
-                font-size: 2rem;
-            }
-
-            .contact-item {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-
-            .contact-info a {
-                font-size: 1rem;
-            }
-
-            .time-display {
-                font-size: 1rem;
-                bottom: 10px;
-                right: 10px;
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div id="loading-screen" style="position: fixed; inset: 0; background: var(--background); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-        <div style="color: var(--primary-color); font-size: 1.5rem;">Loading...</div>
-    </div>
-
     <nav class="nav-bar">
         <a href="index.html" class="logo">
             <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
@@ -318,120 +156,52 @@
     </nav>
 
     <div class="contact-container">
-        <div class="contact-card">
-            <div class="contact-header">
-                <h1>Get in Touch</h1>
-                <p>Let's create something amazing together</p>
-            </div>
-            <div class="contact-methods">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-info">
-                        <h3>Email</h3>
-                        <a href="mailto:sachinbp359@gmail.com">sachinbp359@gmail.com</a>
-                        <p>Feel free to reach out anytime</p>
-                    </div>
+        <div class="contact-header">
+            <h1>Contact</h1>
+            <p>Let's connect and create something amazing</p>
+        </div>
+
+        <div class="contact-grid">
+            <a href="mailto:sachinbp359@gmail.com" class="contact-item">
+                <div class="contact-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAgNEg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yem0wIDRsLTggNS04LTVWNmw4IDUgOC01djJ6Ii8+PC9zdmc+" alt="Email">
                 </div>
-                <div class="contact-item youtube">
-                    <div class="contact-icon">▶️</div>
-                    <div class="contact-info">
-                        <h3>YouTube Channel</h3>
-                        <a href="https://www.youtube.com/@SBP359" target="_blank">@SBP359</a>
-                        <p>Check out my latest content</p>
-                    </div>
+                <div class="contact-info">
+                    <h3>Email</h3>
+                    <p>sachinbp359@gmail.com</p>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💻</div>
-                    <div class="contact-info">
-                        <h3>GitHub</h3>
-                        <a href="https://github.com/SBP359" target="_blank">github.com/SBP359</a>
-                        <p>Explore my projects and contributions</p>
-                    </div>
+            </a>
+
+            <a href="https://www.youtube.com/@SBP359" target="_blank" class="contact-item">
+                <div class="contact-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkuNjE1IDMuMTg0Yy0zLjYwNC0uMjQ2LTExLjYzMS0uMjQ1LTE1LjIzIDBDLjQ4OCAzLjQ1LjIwOCA1LjgwNC4xMTIgMTJjLjA5NiA2LjE5Ni4zNzYgOC41NSA0LjI3MyA4LjgxNiAzLjYuMjQ1IDExLjYyNi4yNDYgMTUuMjMgMCAzLjg5Ny0uMjY2IDQuMTc3LTIuNjIgNC4yNzMtOC44MTYtLjA5Ni02LjE5Ni0uMzc2LTguNTUtNC4yNzMtOC44MTZ6TTkgMTYuNVY3LjVsOCA0LjUtOCA0LjV6Ii8+PC9zdmc+" alt="YouTube">
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🌐</div>
-                    <div class="contact-info">
-                        <h3>Portfolio</h3>
-                        <a href="https://sbp359.github.io" target="_blank">sbp359.github.io</a>
-                        <p>View my complete portfolio</p>
-                    </div>
+                <div class="contact-info">
+                    <h3>YouTube</h3>
+                    <p>@SBP359</p>
                 </div>
-            </div>
+            </a>
+
+            <a href="https://github.com/SBP359" target="_blank" class="contact-item">
+                <div class="contact-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMEM1LjM3NCAwIDAgNS4zNzMgMCAxMmMwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNi4xMS44Mi0uMjYuODItLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43My4wODMtLjczIDEuMjA1LjA4NCAxLjgzOCAxLjIzNiAxLjgzOCAxLjIzNiAxLjA3IDEuODM1IDIuODA5IDEuMzA1IDMuNDk1Ljk5OC4xMDgtLjc3Ni40MTctMS4zMDUuNzYtMS42MDUtMi42NjUtLjMtNS40NjYtMS4zMzItNS40NjYtNS45MyAwLTEuMzEuNDY1LTIuMzggMS4yMzUtMy4yMi0uMTM1LS4zMDMtLjU0LTEuNTIzLjEwNS0zLjE3NiAwIDAgMS4wMDUtLjMyMiAzLjMgMS4yMy45Ni0uMjY3IDEuOTgtLjM5OSAzLS40MDUgMS4wMi4wMDYgMi4wNC4xMzggMyAuNDA1IDIuMjgtMS41NTIgMy4yODUtMS4yMyAzLjI4NS0xLjIzLjY0NSAxLjY1My4yNCAyLjg3My4xMiAzLjE3Ni43NjUuODQgMS4yMyAxLjkxIDEuMjMgMy4yMiAwIDQuNjEtMi44MDUgNS42MjUtNS40NzUgNS45Mi40Mi4zNi44MSAxLjA5Ni44MSAyLjIydjMuMjljMCAuMzEuMi43LjgyNS41OEM3MC41NjggMjEuNzk2IDI0IDE3LjMgMjQgMTIgMjQgNS4zNzMgMTguNjI3IDAgMTIgMHoiLz48L3N2Zz4=" alt="GitHub">
+                </div>
+                <div class="contact-info">
+                    <h3>GitHub</h3>
+                    <p>github.com/SBP359</p>
+                </div>
+            </a>
+
+            <a href="https://sbp359.github.io" target="_blank" class="contact-item">
+                <div class="contact-icon">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmM1LjUxNCAwIDEwIDQuNDg2IDEwIDEwcy00LjQ4NiAxMC0xMCAxMFMyIDE3LjUxNCAyIDEyIDYuNDg2IDIgMTIgMnptMC0yQzUuMzczIDAgMCA1LjM3MyAwIDEyczUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyUzE4LjYyNyAwIDEyIDB6bTEgMTZoLTJ2LTJoMnYyem0wLTQuNWgtMmMwLTMuMDg2IDMtMi45MzggMyAtNSAwLTEuMTA0LS44OTYtMi0yLTJzLTIgLjg5Ni0yIDJoLTJjMC0yLjIxIDEuNzktNCA0LTRzNCAxLjc5IDQgNGMwIDMuMDctMyAyLjkxLTMgNXoiLz48L3N2Zz4=" alt="Portfolio">
+                </div>
+                <div class="contact-info">
+                    <h3>Portfolio</h3>
+                    <p>sbp359.github.io</p>
+                </div>
+            </a>
         </div>
     </div>
-
-    <div class="time-display"></div>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <script>
-        // Loading screen
-        window.addEventListener('load', () => {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.style.opacity = '0';
-            loadingScreen.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        });
-
-        // Custom cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        let isMoving = false;
-        let cursorTimeout;
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isMoving) {
-                isMoving = true;
-                cursor.style.display = 'block';
-                cursorFollower.style.display = 'block';
-            }
-
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-
-            clearTimeout(cursorTimeout);
-            cursorTimeout = setTimeout(() => {
-                cursorFollower.style.left = `${e.clientX}px`;
-                cursorFollower.style.top = `${e.clientY}px`;
-            }, 50);
-        });
-
-        // Hide cursor when leaving window
-        document.addEventListener('mouseleave', () => {
-            cursor.style.display = 'none';
-            cursorFollower.style.display = 'none';
-        });
-
-        // Show cursor when entering window
-        document.addEventListener('mouseenter', () => {
-            cursor.style.display = 'block';
-            cursorFollower.style.display = 'block';
-        });
-
-        // Card tilt effect
-        const card = document.querySelector('.contact-card');
-        let cardTimeout;
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!card) return;
-            
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const angleX = (y - centerY) / 30;
-                const angleY = (centerX - x) / 30;
-                
-                clearTimeout(cardTimeout);
-                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
-            }
-        });
-
-        card.addEventListener('mouseleave', () => {
-            clearTimeout(car
+</body>
+</html>
