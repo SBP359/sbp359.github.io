@@ -1,1002 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBP359 | Portfolio</title>
-    <link rel="shortcut icon" type="image/x-icon" href="asset/ico.ico">
-    <style>
-        :root {
-            --primary-color: #00ff88;
-            --secondary-color: #0066ff;
-            --accent-color: #ff3366;
-            --background: #0a0a0a;
-            --text-color: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        body {
-            background: linear-gradient(45deg, 
-                var(--background), 
-                #1a1a1a, 
-                #141414, 
-                var(--background));
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: var(--text-color);
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        .container {
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* Navigation Bar */
-        .nav-bar {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-            filter: drop-shadow(0 0 10px var(--primary-color));
-        }
-
-        .logo-text {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-        }
-
-        .menu-items {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .glow-button {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glow-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        .glow-button:hover::before {
-            left: 100%;
-        }
-
-        .glow-button:hover {
-            box-shadow: 0 0 20px var(--primary-color);
-            background: var(--primary-color);
-            color: var(--background);
-            transform: translateY(-3px);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .hero-content {
-            transform: translateY(-50px);
-        }
-
-        .typing-text {
-            font-size: 5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .typing-text::after {
-            content: '|';
-            position: absolute;
-            right: -15px;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
-            animation-delay: 2s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta-button {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 30px;
-            color: var(--background);
-            cursor: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 2rem;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
-        }
-
-        /* Floating Cards */
-        .floating-cards {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 4rem 2rem;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            width: 300px;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transform: translateX(-100%);
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            transform: translateX(100%);
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-            border-color: var(--primary-color);
-        }
-
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: var(--secondary-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-        }
-
-        /* Time Display */
-        .time-display {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
-        }
-
-        @media (max-width: 768px) {
-            .menu-items {
-                display: none;
-            }
-            
-            .typing-text {
-                font-size: 3rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <nav class="nav-bar">
-            <div class="logo">
-                <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
-            
-            </div>
-            <div class="menu-items">
-                <a href="#" class="glow-button">Home</a>
-                <a href="https://github.com/SBP359?tab=repositories" class="glow-button">Projects</a>
-                <a href="/about.html" class="glow-button">About</a>
-                <a href="/contact.html" class="glow-button">Contact</a>
-            </div>
-        </nav>
-
-        <div class="hero">
-            <div class="hero-content">
-                <h1 class="typing-text"></h1>
-                <p class="subtitle">Crafting Digital Excellence</p>
-                <a href="https://github.com/SBP359" class="cta-button" target="_blank">Explore My GitHub</a>
-            </div>
-        </div>
-
-        <div class="floating-cards">
-            <div class="card" data-tilt>
-                <h3>Code Wizard</h3>
-                <p>Creating magic with code</p>
-            </div>
-            <div class="card" data-tilt>
-                <h3>Innovation Hub</h3>
-                <p>Building the future</p>
-            </div>
-            <div class="card" data-tilt>
-                <h3>Digital Artist</h3>
-                <p>Designing experiences</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    <div class="time-display"></div>
-
-    <script>
-        // Typing effect
-        const text = "Welcome to My World";
-        const typingText = document.querySelector('.typing-text');
-        let charIndex = 0;
-
-        function type() {
-            if(charIndex < text.length) {
-                typingText.textContent += text.charAt(charIndex);
-                charIndex++;
-                setTimeout(type, 100);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(type, 1000);
-        });
-
-        // Custom cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-
-        // Parallax effect for cards
-        document.addEventListener('mousemove', (e) => {
-            document.querySelectorAll('.card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                card.style.transform = perspective(1000px) 
-                    rotateY(${(x - rect.width / 2) / 20}deg) 
-                    rotateX(${-(y - rect.height / 2) / 20}deg)
-                    translateY(-10px);
-            });
-        });
-
-function updateTime() {
-    const timeDisplay = document.querySelector('.time-display');
-    const now = new Date();
-    
-    // Add 5 hours and 30 minutes to UTC
-    const istTime = new Date(now.getTime() + (330 * 60000)); // 330 minutes = 5 hours 30 minutes
-    
-    // Format the date and time
-    const year = istTime.getUTCFullYear();
-    const month = String(istTime.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(istTime.getUTCDate()).padStart(2, '0');
-    const hours = String(istTime.getUTCHours()).padStart(2, '0');
-    const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(istTime.getUTCSeconds()).padStart(2, '0');
-    
-    const istString = ${year}-${month}-${day} ${hours}:${minutes}:${seconds};
-    timeDisplay.textContent = IST: ${istString};
-}
-
-// Update time every second
-setInterval(updateTime, 1000);
-updateTime(); // 
-
-        // Particle system
-        const canvas = document.createElement('canvas');
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.zIndex = '-1';
-        document.body.appendChild(canvas);
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * window.innerWidth;
-                this.y = Math.random() * window.innerHeight;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-                this.color = hsl(${Math.random() * 60 + 120}, 100%, 50%);
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > window.innerWidth || this.x < 0) this.speedX *= -1;
-                if (this.y > window.innerHeight || this.y < 0) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        const particles = Array.from({ length: 50 }, () => new Particle());
-
-        function animate() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
-</body>
-</html>
-
-
-
-CONTACTS/HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact | SBP359</title>
-    <style>
-        :root {
-            --primary-color: #00ff88;
-            --background: #0a0a0a;
-            --text-color: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--background);
-            color: var(--text-color);
-            font-family: 'Arial', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 80px;
-        }
-
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .logo-text {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .back-button {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--primary-color);
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .back-button:hover {
-            background: var(--primary-color);
-            color: var(--background);
-        }
-
-        .contact-container {
-            max-width: 800px;
-            width: 90%;
-            margin: 2rem auto;
-        }
-
-        .contact-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .contact-header h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 1rem;
-        }
-
-        .contact-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: 0.3s;
-            border: 1px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-item:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-5px);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-icon img {
-            width: 30px;
-            height: 30px;
-            filter: invert(1);
-        }
-
-        .contact-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-info p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <nav class="nav-bar">
-        <a href="index.html" class="logo">
-            <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
-            <span class="logo-text">SBP359</span>
-        </a>
-        <a href="index.html" class="back-button">Back to Home</a>
-    </nav>
-
-    <div class="contact-container">
-        <div class="contact-header">
-            <h1>Contact</h1>
-            <p>Let's connect and create something amazing</p>
-        </div>
-
-        <div class="contact-grid">
-            <a href="mailto:sachinbp359@gmail.com" class="contact-item">
-                <div class="contact-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAgNEg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yem0wIDRsLTggNS04LTVWNmw4IDUgOC01djJ6Ii8+PC9zdmc+" alt="Email">
-                </div>
-                <div class="contact-info">
-                    <h3>Email</h3>
-                    <p>sachinbp359@gmail.com</p>
-                </div>
-            </a>
-
-            <a href="https://www.youtube.com/@SBP359" target="_blank" class="contact-item">
-                <div class="contact-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkuNjE1IDMuMTg0Yy0zLjYwNC0uMjQ2LTExLjYzMS0uMjQ1LTE1LjIzIDBDLjQ4OCAzLjQ1LjIwOCA1LjgwNC4xMTIgMTJjLjA5NiA2LjE5Ni4zNzYgOC41NSA0LjI3MyA4LjgxNiAzLjYuMjQ1IDExLjYyNi4yNDYgMTUuMjMgMCAzLjg5Ny0uMjY2IDQuMTc3LTIuNjIgNC4yNzMtOC44MTYtLjA5Ni02LjE5Ni0uMzc2LTguNTUtNC4yNzMtOC44MTZ6TTkgMTYuNVY3LjVsOCA0LjUtOCA0LjV6Ii8+PC9zdmc+" alt="YouTube">
-                </div>
-                <div class="contact-info">
-                    <h3>YouTube</h3>
-                    <p>@SBP359</p>
-                </div>
-            </a>
-
-            <a href="https://github.com/SBP359" target="_blank" class="contact-item">
-                <div class="contact-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMEM1LjM3NCAwIDAgNS4zNzMgMCAxMmMwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNi4xMS44Mi0uMjYuODItLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43My4wODMtLjczIDEuMjA1LjA4NCAxLjgzOCAxLjIzNiAxLjgzOCAxLjIzNiAxLjA3IDEuODM1IDIuODA5IDEuMzA1IDMuNDk1Ljk5OC4xMDgtLjc3Ni40MTctMS4zMDUuNzYtMS42MDUtMi42NjUtLjMtNS40NjYtMS4zMzItNS40NjYtNS45MyAwLTEuMzEuNDY1LTIuMzggMS4yMzUtMy4yMi0uMTM1LS4zMDMtLjU0LTEuNTIzLjEwNS0zLjE3NiAwIDAgMS4wMDUtLjMyMiAzLjMgMS4yMy45Ni0uMjY3IDEuOTgtLjM5OSAzLS40MDUgMS4wMi4wMDYgMi4wNC4xMzggMyAuNDA1IDIuMjgtMS41NTIgMy4yODUtMS4yMyAzLjI4NS0xLjIzLjY0NSAxLjY1My4yNCAyLjg3My4xMiAzLjE3Ni43NjUuODQgMS4yMyAxLjkxIDEuMjMgMy4yMiAwIDQuNjEtMi44MDUgNS42MjUtNS40NzUgNS45Mi40Mi4zNi44MSAxLjA5Ni44MSAyLjIydjMuMjljMCAuMzEuMi43LjgyNS41OEM3MC41NjggMjEuNzk2IDI0IDE3LjMgMjQgMTIgMjQgNS4zNzMgMTguNjI3IDAgMTIgMHoiLz48L3N2Zz4=" alt="GitHub">
-                </div>
-                <div class="contact-info">
-                    <h3>GitHub</h3>
-                    <p>github.com/SBP359</p>
-                </div>
-            </a>
-
-            <a href="https://sbp359.github.io" target="_blank" class="contact-item">
-                <div class="contact-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmM1LjUxNCAwIDEwIDQuNDg2IDEwIDEwcy00LjQ4NiAxMC0xMCAxMFMyIDE3LjUxNCAyIDEyIDYuNDg2IDIgMTIgMnptMC0yQzUuMzczIDAgMCA1LjM3MyAwIDEyczUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyUzE4LjYyNyAwIDEyIDB6bTEgMTZoLTJ2LTJoMnYyem0wLTQuNWgtMmMwLTMuMDg2IDMtMi45MzggMyAtNSAwLTEuMTA0LS44OTYtMi0yLTJzLTIgLjg5Ni0yIDJoLTJjMC0yLjIxIDEuNzktNCA0LTRzNCAxLjc5IDQgNGMwIDMuMDctMyAyLjkxLTMgNXoiLz48L3N2Zz4=" alt="Portfolio">
-                </div>
-                <div class="contact-info">
-                    <h3>Portfolio</h3>
-                    <p>sbp359.github.io</p>
-                </div>
-            </a>
-        </div>
-    </div>
-</body>
-</html>
-
-CONTACT.HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | SBP359</title>
-    <style>
-        :root {
-            --primary-color: #00ff88;
-            --secondary-color: #0066ff;
-            --background: #0a0a0a;
-            --text-color: #ffffff;
-        }
-
-        body {
-            background: linear-gradient(45deg, var(--background), #1a1a1a);
-            color: var(--text-color);
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-bar {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .back-button {
-            color: var(--primary-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--primary-color);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: var(--primary-color);
-            color: var(--background);
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .about-content h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .about-content p {
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        /* Add your content here after you write your about me */
-        .placeholder-text {
-            color: #666;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-    <nav class="nav-bar">
-        <div class="logo">
-            <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="Logo">
-        </div>
-        <a href="index.html" class="back-button">Back to Home</a>
-    </nav>
-
-    <div class="about-content">
-        <h1>About Me</h1>
-        <p class="placeholder-text">
-            I'm Sachin, a passionate tech enthusiast who started exploring technology at the age of 12. For the past five years, I've been deeply engaged with gadgets and software. I'm a self-taught programmer with expertise in Python, AI—particularly NLP and computer vision—as well as data science. Currently, I'm keen on expanding my knowledge in backend development.
-        </p>
-    </div>
-</body>
-</html>
-
-
-
-
-M,AKE IT IN SINGLE HTML
-MAKE THIS  BIT PROFESSIONAL AND BETTER , NO NEON NEEDED , ADD MOSUE EFFECTS YET BETTER
-ChatGPT said:
-You dumped three HTML files, a nightclub’s worth of neon, and about twelve different visual gimmicks on my desk and said “make it professional.” Cool. Let’s perform surgery.
-
-Brutal truth first
-Your current site screams “I discovered CSS animations yesterday”.
-
-Neon gradients + custom cursor + particles + tilt + typing + clock = visual noise, not portfolio.
-
-Professionals don’t blind recruiters. They guide them.
-
-One clean HTML file is smart. Fewer moving parts, fewer ways to embarrass yourself.
-
-Now the fix.
-
-What I changed (so you don’t undo it later)
-Single HTML file: Home, About, Contact as sections.
-
-Neutral palette: charcoal, off-white, muted accent.
-
-Subtle mouse effects: soft cursor glow + card hover parallax. No laser rave.
-
-Readable typography: system fonts, clean spacing.
-
-Professional layout: header, hero, cards, sections.
-
-Still interactive, just not screaming for attention.
-
-SINGLE, CLEAN, PROFESSIONAL HTML (drop-in ready)
-Copy-paste this. Yes, all of it. No, don’t “optimize” it yet.
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SBP359 | Portfolio</title>
 
 <style>
 :root {
-  --bg: #0f1115;
-  --surface: #161a22;
-  --text: #e6e8ee;
-  --muted: #9aa3b2;
-  --accent: #4f8cff;
+  --bg: #0b0d10;
+  --panel: #11151c;
+  --border: #222833;
+  --text: #d1d5db;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --success: #3fb950;
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* ---------- CURSOR ---------- */
+.cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
-/* ---------- NAV ---------- */
-nav {
+/* ---------- HEADER ---------- */
+header {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 1rem 2rem;
-  background: rgba(15,17,21,0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(11,13,16,0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
 }
 
-nav img {
-  height: 36px;
+header img {
+  height: 32px;
 }
 
-nav .links a {
+nav a {
   margin-left: 1.5rem;
   color: var(--muted);
-  transition: color 0.2s;
+  text-decoration: none;
 }
 
-nav .links a:hover {
+nav a:hover {
   color: var(--text);
 }
 
-/* ---------- HERO ---------- */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-}
-
-.hero h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  color: var(--muted);
-  max-width: 600px;
-  margin: auto;
-}
-
-.hero .cta {
-  margin-top: 2rem;
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  background: var(--accent);
-  color: #fff;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.hero .cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(79,140,255,0.3);
-}
-
-/* ---------- SECTIONS ---------- */
-section {
-  padding: 6rem 2rem;
+/* ---------- LAYOUT ---------- */
+main {
+  padding-top: 90px;
   max-width: 1100px;
   margin: auto;
 }
 
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+section {
+  padding: 4rem 1.5rem;
 }
 
-/* ---------- CARDS ---------- */
-.cards {
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.prompt {
+  color: var(--success);
+}
+
+.hero h1 {
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+.hero p {
+  margin-top: 1rem;
+  color: var(--muted);
+  max-width: 700px;
+}
+
+.hero a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.hero a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- PANELS ---------- */
+.panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: transform 0.15s ease;
+}
+
+.panel:hover {
+  transform: translateY(-3px);
+}
+
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
 
-.card {
-  background: var(--surface);
-  padding: 2rem;
-  border-radius: 12px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  will-change: transform;
-}
-
-.card h3 {
-  margin-bottom: 0.5rem;
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
 /* ---------- CONTACT ---------- */
 .contact a {
   display: block;
-  padding: 1rem;
-  border-radius: 8px;
-  background: var(--surface);
-  margin-bottom: 1rem;
-  transition: background 0.2s;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  text-decoration: none;
 }
 
 .contact a:hover {
-  background: #1d2230;
+  color: var(--accent);
 }
 
-/* ---------- CURSOR ---------- */
-.cursor {
-  position: fixed;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: rgba(79,140,255,0.25);
-  transform: translate(-50%, -50%);
-  transition: transform 0.05s linear;
-  z-index: 1000;
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
-  nav .links {
+  nav {
     display: none;
   }
 }
@@ -1007,82 +179,77 @@ section h2 {
 
 <div class="cursor"></div>
 
-<nav>
-  <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="logo">
-  <div class="links">
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+<header>
+  <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="SBP359">
+  <nav>
+    <a href="#about">about</a>
+    <a href="#work">work</a>
+    <a href="#contact">contact</a>
+  </nav>
+</header>
+
+<main>
 
 <section class="hero">
-  <div>
-    <h1>Sachin BP</h1>
-    <p>
-      Self-taught developer focused on building clean, functional software.
-      Interested in AI, computer vision, and backend systems.
-    </p>
-    <a class="cta" href="https://github.com/SBP359" target="_blank">GitHub</a>
-  </div>
+  <div class="prompt">sbp359@portfolio:~$ whoami</div>
+  <h1>Sachin BP</h1>
+  <p>
+    Self-taught developer working with Python, AI, computer vision, and backend systems.
+    Focused on building practical, clean, and scalable software.
+  </p>
+  <a href="https://github.com/SBP359" target="_blank">open github</a>
 </section>
 
 <section id="about">
-  <h2>About</h2>
-  <p style="color:var(--muted); max-width:700px;">
-    I started exploring technology at the age of 12 and have spent the last five years
-    learning through hands-on projects. My experience includes Python, AI (NLP and
-    computer vision), and data-driven applications. Currently expanding into backend
-    development and scalable systems.
-  </p>
+  <h2>about</h2>
+  <div class="panel">
+    <p>
+      I started exploring technology at 12 and have spent the last five years learning
+      through hands-on projects. My work spans AI (NLP and computer vision), data-driven
+      applications, and backend development.
+    </p>
+  </div>
 </section>
 
 <section id="work">
-  <h2>What I Do</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Software Development</h3>
-      <p>Building reliable applications with clean architecture.</p>
+  <h2>work</h2>
+  <div class="grid">
+    <div class="panel">
+      <h3>software development</h3>
+      <p class="muted">Clean architecture, real projects, no fluff.</p>
     </div>
-    <div class="card">
-      <h3>AI & Computer Vision</h3>
-      <p>Practical ML solutions using real-world data.</p>
+    <div class="panel">
+      <h3>ai & computer vision</h3>
+      <p class="muted">Applied ML that actually solves problems.</p>
     </div>
-    <div class="card">
-      <h3>Backend Systems</h3>
-      <p>APIs, databases, and scalable logic.</p>
+    <div class="panel">
+      <h3>backend systems</h3>
+      <p class="muted">APIs, databases, logic that scales.</p>
     </div>
   </div>
 </section>
 
-<section id="contact" class="contact">
-  <h2>Contact</h2>
-  <a href="mailto:sachinbp359@gmail.com">sachinbp359@gmail.com</a>
-  <a href="https://github.com/SBP359" target="_blank">github.com/SBP359</a>
-  <a href="https://www.youtube.com/@SBP359" target="_blank">@SBP359 on YouTube</a>
+<section id="contact">
+  <h2>contact</h2>
+  <div class="panel contact">
+    <a href="mailto:sachinbp359@gmail.com">email: sachinbp359@gmail.com</a>
+    <a href="https://github.com/SBP359" target="_blank">github: SBP359</a>
+    <a href="https://www.youtube.com/@SBP359" target="_blank">youtube: @SBP359</a>
+    <a href="https://sbp359.github.io" target="_blank">site: sbp359.github.io</a>
+  </div>
 </section>
+
+</main>
+
+<footer>
+  © SBP359 • minimal by design
+</footer>
 
 <script>
 const cursor = document.querySelector('.cursor');
-
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
-});
-
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    card.style.transform =
-      `perspective(600px)
-       rotateX(${-(y - r.height/2)/20}deg)
-       rotateY(${(x - r.width/2)/20}deg)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'none';
-  });
 });
 </script>
 
