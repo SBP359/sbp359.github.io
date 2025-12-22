@@ -1,256 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SBP359 | Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SBP359@terminal:~$</title>
 
 <style>
-:root {
-  --bg: #0b0d10;
-  --panel: #11151c;
-  --border: #222833;
-  --text: #d1d5db;
-  --muted: #8b949e;
-  --accent: #58a6ff;
-  --success: #3fb950;
-}
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d1117;
+  --terminal-bg: #0a0e14;
+  --text: #00ff00;
+  --text-dim: #00aa00;
+  --text-bright: #00ff88;
+  --prompt: #ffaa00;
+  --error: #ff4444;
+  --blue: #4493f8;
+  --purple: #bc8cff;
+  --cyan: #00ffff;
 }
 
 body {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: 'Fira Code', 'Courier New', monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  overflow-x: hidden;
+  font-size: 14px;
 }
 
-/* ---------- CURSOR ---------- */
-.cursor {
+/* Scanline effect */
+body::before {
+  content: '';
   position: fixed;
-  width: 10px;
-  height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
   pointer-events: none;
-  transform: translate(-50%, -50%);
   z-index: 1000;
 }
 
-/* ---------- HEADER ---------- */
-header {
+/* CRT effect */
+body::after {
+  content: '';
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  background: rgba(11,13,16,0.85);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--border);
-  padding: 0.75rem 1.5rem;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Terminal Window */
+.terminal {
+  background: var(--terminal-bg);
+  border: 2px solid #1f2937;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 40px rgba(0,255,0,0.1);
+  animation: terminalGlow 2s ease-in-out infinite;
+}
+
+@keyframes terminalGlow {
+  0%, 100% { box-shadow: 0 0 40px rgba(0,255,0,0.1); }
+  50% { box-shadow: 0 0 60px rgba(0,255,0,0.15); }
+}
+
+.terminal-header {
+  background: #1f2937;
+  padding: 0.75rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  z-index: 100;
+  gap: 0.5rem;
+  border-bottom: 1px solid #374151;
 }
 
-header img {
-  height: 32px;
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
-nav a {
-  margin-left: 1.5rem;
-  color: var(--muted);
-  text-decoration: none;
-}
+.terminal-button.close { background: #ff5f56; }
+.terminal-button.minimize { background: #ffbd2e; }
+.terminal-button.maximize { background: #27c93f; }
 
-nav a:hover {
-  color: var(--text);
-}
-
-/* ---------- LAYOUT ---------- */
-main {
-  padding-top: 90px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-section {
-  padding: 4rem 1.5rem;
-}
-
-h1, h2, h3 {
+.terminal-title {
+  flex: 1;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
-h2 {
-  margin-bottom: 1.5rem;
+.terminal-body {
+  padding: 1.5rem;
+  min-height: 400px;
 }
 
-/* ---------- HERO ---------- */
-.hero {
-  border: 1px solid var(--border);
-  background: var(--panel);
-  padding: 2rem;
-  border-radius: 8px;
+.command-line {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: flex-start;
 }
 
 .prompt {
-  color: var(--success);
+  color: var(--prompt);
+  margin-right: 0.5rem;
+  white-space: nowrap;
 }
 
-.hero h1 {
-  margin-top: 1rem;
-  font-size: 2rem;
+.command {
+  color: var(--text-bright);
+  font-weight: 600;
 }
 
-.hero p {
-  margin-top: 1rem;
-  color: var(--muted);
-  max-width: 700px;
-}
-
-.hero a {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
+.output {
+  margin-left: 0;
+  margin-bottom: 1.5rem;
   color: var(--text);
+  white-space: pre-wrap;
+}
+
+.output-line {
+  margin-bottom: 0.25rem;
+}
+
+/* ASCII Art */
+.ascii-art {
+  color: var(--blue);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  margin: 1rem 0;
+  text-shadow: 0 0 10px rgba(68,147,248,0.5);
+}
+
+/* Links */
+a {
+  color: var(--cyan);
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.hero a:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+a:hover {
+  border-bottom-color: var(--cyan);
+  text-shadow: 0 0 10px var(--cyan);
 }
 
-/* ---------- PANELS ---------- */
-.panel {
-  border: 1px solid var(--border);
-  background: var(--panel);
-  border-radius: 8px;
-  padding: 2rem;
-  transition: transform 0.15s ease;
+/* Lists */
+ul {
+  list-style: none;
+  margin-left: 1rem;
 }
 
-.panel:hover {
-  transform: translateY(-3px);
+ul li::before {
+  content: '├─ ';
+  color: var(--text-dim);
+  margin-right: 0.5rem;
 }
 
-.grid {
+ul li:last-child::before {
+  content: '└─ ';
+}
+
+/* Cards */
+.card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
-/* ---------- CONTACT ---------- */
-.contact a {
-  display: block;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--muted);
-  text-decoration: none;
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #1f2937;
+  border-left: 3px solid var(--blue);
+  padding: 1rem;
+  transition: all 0.3s ease;
 }
 
-.contact a:hover {
-  color: var(--accent);
+.card:hover {
+  border-left-color: var(--text-bright);
+  background: rgba(255,255,255,0.05);
+  transform: translateX(4px);
+  box-shadow: 0 0 20px rgba(0,255,0,0.1);
 }
 
-/* ---------- FOOTER ---------- */
-footer {
+.card h3 {
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.card p {
+  color: var(--text-dim);
+  font-size: 0.875rem;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tag {
+  padding: 0.25rem 0.5rem;
+  background: rgba(0,255,0,0.1);
+  border: 1px solid var(--text-dim);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  color: var(--text);
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 16px;
+  background: var(--text);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Header section */
+.header-info {
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.section-title {
+  color: var(--prompt);
+  font-size: 1.25rem;
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: '>';
+  color: var(--text-bright);
+  font-weight: 700;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.stat {
   text-align: center;
-  padding: 2rem;
-  color: var(--muted);
-  font-size: 0.85rem;
+  padding: 1rem;
+  background: rgba(0,255,0,0.05);
+  border: 1px solid var(--text-dim);
 }
 
+.stat-number {
+  font-size: 2rem;
+  color: var(--text-bright);
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  nav {
-    display: none;
+  .container {
+    padding: 1rem;
   }
+  
+  .terminal-body {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .ascii-art {
+    font-size: 0.6rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  color: var(--text-dim);
+}
+
+.loading::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
-
-<header>
-  <img src="https://raw.githubusercontent.com/SBP359/SBP359/a5b557565338cc916ef8774e5ab7bc1eb4ed4cef/assets/logo.png" alt="SBP359">
-  <nav>
-    <a href="#about">about</a>
-    <a href="#work">work</a>
-    <a href="#contact">contact</a>
-  </nav>
-</header>
-
-<main>
-
-<section class="hero">
-  <div class="prompt">sbp359@portfolio:~$ whoami</div>
-  <h1>Sachin BP</h1>
-  <p>
-    Self-taught developer working with Python, AI, computer vision, and backend systems.
-    Focused on building practical, clean, and scalable software.
-  </p>
-  <a href="https://github.com/SBP359" target="_blank">open github</a>
-</section>
-
-<section id="about">
-  <h2>about</h2>
-  <div class="panel">
-    <p>
-      I started exploring technology at 12 and have spent the last five years learning
-      through hands-on projects. My work spans AI (NLP and computer vision), data-driven
-      applications, and backend development.
-    </p>
-  </div>
-</section>
-
-<section id="work">
-  <h2>work</h2>
-  <div class="grid">
-    <div class="panel">
-      <h3>software development</h3>
-      <p class="muted">Clean architecture, real projects, no fluff.</p>
+<div class="container">
+  
+  <!-- Main Terminal -->
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="terminal-button close"></div>
+      <div class="terminal-button minimize"></div>
+      <div class="terminal-button maximize"></div>
+      <div class="terminal-title">sbp359@dev: ~/portfolio</div>
     </div>
-    <div class="panel">
-      <h3>ai & computer vision</h3>
-      <p class="muted">Applied ML that actually solves problems.</p>
-    </div>
-    <div class="panel">
-      <h3>backend systems</h3>
-      <p class="muted">APIs, databases, logic that scales.</p>
+    
+    <div class="terminal-body">
+      <!-- Header -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">cat /etc/whoami</span>
+      </div>
+      
+      <div class="output">
+<div class="ascii-art">
+   _____ ____  ____  _____ _____ ___  
+  / ____|  _ \|  _ \|___ /| ____|/ _ \ 
+ | (___ | |_) | |_) | |_ \| |__ | (_) |
+  \___ \|  _ <|  __/ ___) |___ \ \__, |
+  ____) | |_) | |   |____/|___) | / / 
+ |_____/|____/|_|        |____/ /_/  
+</div>
+        
+<span style="color: var(--text-bright);">Sachin BP</span> - Software Developer & AI Engineer
+<span style="color: var(--text-dim);">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+
+<span style="color: var(--prompt);">STATUS:</span> <span style="color: var(--text-bright);">[ONLINE]</span>
+<span style="color: var(--prompt);">LOCATION:</span> /home/sbp359/
+<span style="color: var(--prompt);">UPTIME:</span> 5+ years in tech
+<span style="color: var(--prompt);">SHELL:</span> Self-taught developer
+      </div>
+
+      <!-- About Section -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">./about.sh --verbose</span>
+      </div>
+      
+      <div class="output">
+<span style="color: var(--text-bright);">[INFO]</span> Initializing profile...
+<span style="color: var(--text-dim);">[====================================] 100%</span>
+
+Self-taught developer with 5+ years of experience building intelligent 
+systems. Started coding at age 12, driven by curiosity and a passion for 
+solving complex problems with elegant solutions.
+
+<span style="color: var(--prompt);">Core Competencies:</span>
+<ul>
+  <li>Artificial Intelligence & Machine Learning</li>
+  <li>Computer Vision & Image Processing</li>
+  <li>Backend Systems & API Development</li>
+  <li>Data Engineering & Analytics</li>
+  <li>DevOps & Cloud Infrastructure</li>
+</ul>
+
+<span style="color: var(--text-bright);">[SUCCESS]</span> Profile loaded successfully
+      </div>
+
+      <!-- Stats -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">stats --summary</span>
+      </div>
+      
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Learning</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Self-Taught</div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">ls -la ./skills/</span>
+      </div>
+      
+      <div class="output">
+<span style="color: var(--text-dim);">total 6 directories</span>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>drwxr-xr-x AI_ML/</h3>
+          <p>Deep learning, NLP, neural networks. Building intelligent systems that learn and adapt.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">NLP</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>drwxr-xr-x Computer_Vision/</h3>
+          <p>Object detection, image classification, real-time video processing and analysis.</p>
+          <div class="tags">
+            <span class="tag">OpenCV</span>
+            <span class="tag">YOLO</span>
+            <span class="tag">CNNs</span>
+            <span class="tag">Image Processing</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>drwxr-xr-x Backend/</h3>
+          <p>Scalable APIs, microservices, database optimization, server architecture.</p>
+          <div class="tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Redis</span>
+            <span class="tag">REST</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>drwxr-xr-x Data_Engineering/</h3>
+          <p>ETL pipelines, data modeling, analytics infrastructure, big data processing.</p>
+          <div class="tags">
+            <span class="tag">Pandas</span>
+            <span class="tag">SQL</span>
+            <span class="tag">ETL</span>
+            <span class="tag">Apache</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>drwxr-xr-x DevOps/</h3>
+          <p>CI/CD pipelines, containerization, infrastructure as code, monitoring.</p>
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Git</span>
+            <span class="tag">Linux</span>
+            <span class="tag">AWS</span>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>drwxr-xr-x Full_Stack/</h3>
+          <p>Modern web applications, responsive design, frontend frameworks, UX.</p>
+          <div class="tags">
+            <span class="tag">JavaScript</span>
+            <span class="tag">React</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">Node.js</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">cat ./contact.txt</span>
+      </div>
+      
+      <div class="output">
+<span style="color: var(--prompt);">╔════════════════════════════════════════╗</span>
+<span style="color: var(--prompt);">║</span>         CONTACT INFORMATION          <span style="color: var(--prompt);">║</span>
+<span style="color: var(--prompt);">╚════════════════════════════════════════╝</span>
+
+<span style="color: var(--text-bright);">EMAIL:</span>    <a href="mailto:sachinbp359@gmail.com">sachinbp359@gmail.com</a>
+<span style="color: var(--text-bright);">GITHUB:</span>   <a href="https://github.com/SBP359" target="_blank">github.com/SBP359</a>
+<span style="color: var(--text-bright);">YOUTUBE:</span>  <a href="https://www.youtube.com/@SBP359" target="_blank">youtube.com/@SBP359</a>
+
+<span style="color: var(--text-dim);">Open to collaborations, opportunities, and interesting projects.</span>
+      </div>
+
+      <!-- Footer -->
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="command">echo "Thanks for visiting!"</span>
+      </div>
+      
+      <div class="output">
+Thanks for visiting!
+      </div>
+
+      <div class="command-line">
+        <span class="prompt">sbp359@dev:~$</span>
+        <span class="cursor"></span>
+      </div>
+
     </div>
   </div>
-</section>
 
-<section id="contact">
-  <h2>contact</h2>
-  <div class="panel contact">
-    <a href="mailto:sachinbp359@gmail.com">email: sachinbp359@gmail.com</a>
-    <a href="https://github.com/SBP359" target="_blank">github: SBP359</a>
-    <a href="https://www.youtube.com/@SBP359" target="_blank">youtube: @SBP359</a>
-    <a href="https://sbp359.github.io" target="_blank">site: sbp359.github.io</a>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  © SBP359 • minimal by design
-</footer>
+</div>
 
 <script>
-const cursor = document.querySelector('.cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+// Typing effect for cursor
+setInterval(() => {
+  const cursor = document.querySelector('.cursor');
+  if (cursor) {
+    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+  }
+}, 500);
+
+// Add glitch effect on hover
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateX(4px)';
+  });
+  card.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateX(0)';
+  });
 });
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Random flicker effect
+setInterval(() => {
+  const body = document.body;
+  if (Math.random() > 0.99) {
+    body.style.opacity = '0.98';
+    setTimeout(() => body.style.opacity = '1', 50);
+  }
+}, 100);
 </script>
 
 </body>
