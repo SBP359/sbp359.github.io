@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Premium Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="ico.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f3f4f6;
+      --bar-bg: rgba(255, 255, 255, 0.85);
+      --border: rgba(0, 0, 0, 0.06);
+      --border-top: rgba(0, 0, 0, 0.8);
+      --text: #111827;
+      --muted: #6b7280;
+      
+      /* Primary dark elements (play button) */
+      --dark-btn: #050505; 
+      --dark-btn-hover: #334155;
+      --btn-icon: #ffffff;
+      
+      /* Progress and styling colors */
+      --accent: #000000; /* Dark navy blue for progress fill */
+      --track-bg: #7eb4b0; /* A solid light gray for the unfilled line */
+      
+      --bar-h: 76px; /* Reduced height to take up less space */
+      --shadow: 0 -8px 30px rgba(0, 0, 0, 0.04);
+      --grad-1: #fdfbfb;
+      --grad-2: #ebedee;
+      --v-thumb-border: #ffffff;
+      --tooltip-bg: var(--text);
+      --tooltip-text: #fff;
+    }
+
+    body.dark-theme {
+      --bg: #0c0c0c;
+      --bar-bg: rgba(18, 18, 18, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-top: rgba(255, 255, 255, 0.15);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      
+      --dark-btn: #f3f4f6; 
+      --dark-btn-hover: #d1d5db;
+      --btn-icon: #050505;
+      
+      --accent: #f3f4f6; 
+      --track-bg: #3f3f46; 
+      
+      --shadow: 0 -8px 30px rgba(0, 0, 0, 0.5);
+      --grad-1: #09090b;
+      --grad-2: #18181b;
+      --v-thumb-border: #050505;
+      --tooltip-bg: var(--text);
+      --tooltip-text: #000;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      /* Add a subtle gradient background to make it look premium */
+      background: linear-gradient(135deg, var(--grad-1) 0%, var(--grad-2) 100%);
+      background-attachment: fixed;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* ── PORTFOLIO CONTENT ── */
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 32px calc(var(--bar-h) + 60px) 32px; /* Pad bottom so player doesn't overlap text */
+      animation: fadeUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .name-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .profile-img {
+      max-width: 180px;
+      height: auto;
+      margin: 0 auto 24px auto;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15)); /* Soft shadow for flying transparent PNGs */
+    }
+
+    .bonjour-img {
+      max-width: 160px;
+      height: auto;
+      margin: 0 auto 16px auto;
+      display: block;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto 24px auto;
+      line-height: 1.6;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .social-link {
+      color: var(--text);
+      font-size: 20px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      background: var(--bar-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .social-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--bar-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card h2 i {
+      color: var(--muted);
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* Skills Badges */
+    .skills-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill-badge {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: rgba(126, 180, 176, 0.15); /* Theme accent hue */
+      color: var(--text);
+      border: 1px solid rgba(126, 180, 176, 0.3);
+    }
+
+    /* List items */
+    .feature-list {
+      list-style: none;
+    }
+    .feature-list li {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.5;
+    }
+    .feature-list li i {
+      color: #7eb4b0;
+      margin-top: 4px;
+    }
+
+    /* ── PLAYER BAR ── */
+    .player {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--bar-h);
+      background: var(--bar-bg);
+      border-top: 2px solid var(--border-top); /* Distinct black border */
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 20px;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    /* ── LEFT: album + info ── */
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      min-width: 180px;
+      justify-content: flex-start;
+    }
+
+    .album-art {
+      width: 56px; height: 56px;
+      border-radius: 8px;
+      background: #e5e7eb center/cover no-repeat;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .album-art:hover {
+      transform: scale(1.05);
+    }
+
+    /* Subtle pulse glow while playing */
+    .album-art.playing {
+      animation: albumPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes albumPulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+      50%      { box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 30px rgba(126, 180, 176, 0.15); }
+    }
+
+    .track-info { min-width: 0; display: flex; flex-direction: column; justify-content: center; max-width: 200px; }
+
+    .track-name {
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      color: var(--text);
+      margin-bottom: 2px;
+      position: relative;
+    }
+
+    .track-name-inner {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      padding-right: 40px; /* gap before text repeats visually */
+    }
+
+    /* Scrolling marquee when playing */
+    .track-name.scrolling .track-name-inner {
+      animation: marquee 10s linear infinite;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .track-credit {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .track-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Info icon + tooltip */
+    .info-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      transition: color 0.2s;
+    }
+    .info-btn:hover { color: var(--text); }
+
+    .info-tooltip {
+      display: none;
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--tooltip-bg);
+      color: var(--tooltip-text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      z-index: 200;
+      pointer-events: none;
+    }
+    .info-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--tooltip-bg);
+    }
+    .info-btn.active .info-tooltip {
+      display: block;
+    }
+
+    /* Mute button */
+    .mute-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      transition: color 0.2s;
+    }
+    .mute-btn:hover { color: var(--text); }
+
+    /* ── CENTER: controls + progress ── */
+    .center {
+      flex: 2;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px; /* Reduced gap to fit height perfectly */
+      padding: 0 24px;
+      min-width: 0;
+    }
+    
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 6px; /* Pull play button down away from border */
+    }
+    
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 16px; /* Slightly smaller */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    
+    .ctrl-btn:hover {
+      color: var(--text);
+      transform: scale(1.1);
+    }
+
+    .play-btn {
+      width: 40px; height: 40px; /* Reduced from 48px to fit perfectly vertically inside 76px container */
+      border-radius: 50%;
+      border: none;
+      background: var(--dark-btn);
+      color: var(--btn-icon);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+    }
+    .play-btn:hover { 
+      transform: scale(1.08); 
+      background: var(--dark-btn-hover); 
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
+    }
+    .play-btn:active { transform: scale(0.95); }
+    
+    .play-btn i { margin-left: 2px; } /* Optical alignment for play icon */
+    .play-btn i.fa-pause { margin-left: 0; }
+
+    /* progress row */
+    .progress-row {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .time {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      width: 40px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* thin progress line */
+    .prog-outer {
+      flex: 1 1 auto;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .prog-track-wrapper {
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--track-bg);
+      position: relative;
+      overflow: hidden;
+      transition: height 0.2s ease;
+    }
+
+    .prog-outer:hover .prog-track-wrapper {
+      height: 6px;
+      border-radius: 3px;
+    }
+
+    .prog-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--accent);
+      width: 0%;
+      pointer-events: none;
+      transition: width 0.1s linear;
+    }
+
+    .prog-input {
+      position: absolute;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+      margin: 0;
+    }
+
+    /* ── RIGHT: volume ── */
+    .right {
+      flex: 1;
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .vol-icon {
+      color: var(--muted);
+      flex-shrink: 0;
+      font-size: 15px;
+      width: 24px;
+      display: flex; justify-content: center;
+    }
+
+    .vol-slider-wrapper {
+      width: 90px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .vol-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--track-bg);
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      z-index: 2;
+    }
+
+    .vol-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+      border: 2px solid var(--v-thumb-border);
+      transition: transform 0.1s;
+    }
+
+    .vol-slider:hover::-webkit-slider-thumb {
+      transform: scale(1.2);
+    }
+
+    .vol-slider::-moz-range-thumb {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--v-thumb-border);
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+      cursor: pointer;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .player {
+        height: auto;
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+      .left {
+        flex: 0 0 auto;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+      .album-art {
+        width: 120px; height: 120px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      }
+      .center {
+        width: 100%;
+        padding: 0;
+      }
+      .controls { 
+        margin: 10px 0;
+      }
+      .right {
+        display: none; /* Hide volume on mobile to save space */
+      }
+      :root { --bar-h: auto; }
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bar-bg);
+      color: var(--text);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      z-index: 50;
+      border: 1px solid var(--border);
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* ══════════ 359 EASTER EGG ══════════ */
+    .easter-359 {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .easter-359.active {
+      opacity: 1;
+    }
+
+    /* Dark cinematic backdrop */
+    .easter-359 .backdrop {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+    }
+
+    /* The big 359 text */
+    .easter-359 .big-text {
+      position: relative;
+      z-index: 2;
+      font-size: 160px;
+      font-weight: 900;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: -4px;
+      color: transparent;
+      background: linear-gradient(135deg, #f5d37f 0%, #ffc837 30%, #fff6d5 50%, #ffc837 70%, #f5d37f 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 60px rgba(255, 200, 55, 0.4);
+      opacity: 0;
+    }
+    .easter-359.active .big-text {
+      animation: text359In 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes text359In {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotateX(40deg);
+        filter: blur(20px);
+      }
+      40% {
+        opacity: 1;
+        transform: scale(1.1) rotateX(0deg);
+        filter: blur(0);
+      }
+      60% {
+        transform: scale(1);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.3);
+        filter: blur(10px);
+      }
+    }
+
+    /* Subtitle under 359 */
+    .easter-359 .sub-text {
+      position: absolute;
+      z-index: 2;
+      bottom: 38%;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 0;
+    }
+    .easter-359.active .sub-text {
+      animation: subFade 2.5s ease forwards;
+    }
+
+    @keyframes subFade {
+      0%, 20% { opacity: 0; transform: translateY(10px); }
+      40%     { opacity: 1; transform: translateY(0); }
+      80%     { opacity: 1; }
+      100%    { opacity: 0; }
+    }
+
+    /* Ring burst */
+    .easter-359 .ring {
+      position: absolute;
+      z-index: 1;
+      width: 100px; height: 100px;
+      border: 3px solid rgba(255, 200, 55, 0.6);
+      border-radius: 50%;
+      opacity: 0;
+    }
+    .easter-359.active .ring {
+      animation: ringBurst 2s ease-out forwards;
+    }
+
+    @keyframes ringBurst {
+      0% { opacity: 1; transform: scale(0); }
+      60% { opacity: 0.4; }
+      100% { opacity: 0; transform: scale(12); }
+    }
+
+    .easter-359.active .ring:nth-child(2) { animation-delay: 0.15s; }
+    .easter-359.active .ring:nth-child(3) { animation-delay: 0.3s; }
+
+    /* Floating particles */
+    .easter-359 .particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #ffc837;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    /* Shimmer flash on the player bar */
+    .player.shimmer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,200,55,0.15) 50%, transparent 100%);
+      animation: shimmerSlide 1s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes shimmerSlide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+  <i class="fa-solid fa-moon"></i>
+</button>
+
+<!-- ── MAIN PORTFOLIO CONTENT ── -->
+<main class="content-wrapper">
+  
+  <header class="header-section">
+    <img src="bonjour_light.png" alt="Bonjour" id="bonjourImg" class="bonjour-img" />
+    <div style="font-size: 14px; font-weight: 700; color: #7eb4b0; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;">Grade 11 Student • Developer</div>
+    <h1 class="name-title">Sachin B Pillai</h1>
+    <img src="sbp.png" alt="SBP" class="profile-img" />
+    <p class="subtitle">
+      Student developer interested in AI, machine learning, and cybersecurity. Actively exploring capture-the-flag (CTF) challenges, security concepts, and intelligent systems.
+    </p>
+    <div class="social-links">
+      <a href="https://github.com/sbp359" class="social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/sbp359/" class="social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://www.youtube.com/@SBP359" class="social-link" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="mailto:sbp359@gmail.com" class="social-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- About Card -->
+    <section class="card">
+      <h2><i class="fa-regular fa-user"></i> About Me</h2>
+      <p>I am a student developer building practical software while learning deeply about intelligent systems and security. My current direction combines AI and machine learning with cybersecurity fundamentals through experiments, CTF-style problem solving, and project-based learning.</p>
+    </section>
+
+    <!-- Skills Card -->
+    <section class="card">
+      <h2><i class="fa-solid fa-code"></i> Core Skills</h2>
+      <p>Languages & Technologies I work with:</p>
+      <div class="skills-wrapper">
+        <span class="skill-badge">Python</span>
+        <span class="skill-badge">JavaScript</span>
+        <span class="skill-badge">Node.js</span>
+        <span class="skill-badge">HTML / CSS</span>
+      </div>
+      
+      <h3 style="margin: 20px 0 10px 0; font-size: 14px; color: var(--text);">Fields of Interest</h3>
+      <div class="skills-wrapper">
+        <span class="skill-badge" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);">Artificial Intelligence</span>
+        <span class="skill-badge" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);">Machine Learning</span>
+        <span class="skill-badge" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3);">Cybersecurity (Learning)</span>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2><i class="fa-solid fa-trophy"></i> Achievements & Contact</h2>
+      <ul class="feature-list" style="margin-bottom: 24px;">
+        <li><i class="fa-solid fa-circle-check"></i> <strong>Winner</strong> – Zonal Hackathon (Vidysetu AI)</li>
+        <li><i class="fa-solid fa-heart-pulse"></i> Got a chance to live</li>
+        <li><i class="fa-solid fa-laptop-code"></i> Active contributor to GitHub projects</li>
+      </ul>
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+      <p>I am completely open to collaborating on meaningful student projects, AI experiments, and security-focused learning initiatives.</p>
+      <a href="mailto:sbp359@gmail.com" style="display: inline-block; padding: 10px 24px; background: var(--text); color: var(--bg); text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 14px; transition: transform 0.2s;">Let's Connect &rarr;</a>
+    </section>
+  </div>
+  
+</main>
+
+<!-- 359 Easter Egg Overlay -->
+<div class="easter-359" id="easter359">
+  <div class="backdrop"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="big-text">3:59</div>
+  <div class="sub-text">signature moment</div>
+</div>
+
+<div class="player">
+  <!-- LEFT -->
+  <div class="left">
+    <div class="album-art" id="albumArt"></div>
+    <div class="track-info">
+      <div class="track-name" id="trackNameRow">
+        <span class="track-name-inner">
+          <span id="trackName">Music Sounds Better With You</span>
+          <span class="track-credit" id="trackCredit">• Stardust</span>
+        </span>
+      </div>
+      <div class="track-label">Now Playing</div>
+    </div>
+    <button class="info-btn" id="infoBtn" aria-label="Song Info">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+      <div class="info-tooltip" id="infoTooltip">Credit: Stardust</div>
+    </button>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="controls">
+      <button class="ctrl-btn" id="prevBtn" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
+      <button class="play-btn" id="playBtn" aria-label="Play">
+        <i id="playIcon" class="fa-solid fa-play"></i>
+      </button>
+      <button class="ctrl-btn" id="nextBtn" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
+    </div>
+    <div class="progress-row">
+      <span class="time" id="curTime">0:00</span>
+      <div class="prog-outer" id="progOuter">
+        <div class="prog-track-wrapper">
+          <div class="prog-fill" id="progFill"></div>
+        </div>
+        <input type="range" class="prog-input" id="progInput" min="0" max="1000" value="0" />
+      </div>
+      <span class="time" id="durTime">0:00</span>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <button class="mute-btn" id="muteBtn" aria-label="Mute">
+      <i id="muteIcon" class="fa-solid fa-volume-high"></i>
+    </button>
+    <div class="vol-slider-wrapper">
+      <input type="range" class="vol-slider" id="volSlider" min="0" max="100" value="80" />
+    </div>
+  </div>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+(function () {
+  const audio      = document.getElementById('audio');
+  const playBtn    = document.getElementById('playBtn');
+  const playIcon   = document.getElementById('playIcon');
+  const prevBtn    = document.getElementById('prevBtn');
+  const nextBtn    = document.getElementById('nextBtn');
+  const albumArt   = document.getElementById('albumArt');
+  const trackName  = document.getElementById('trackName');
+  const trackCredit = document.getElementById('trackCredit');
+  const trackNameRow = document.getElementById('trackNameRow');
+  const progFill   = document.getElementById('progFill');
+  const progInput  = document.getElementById('progInput');
+  const curTime    = document.getElementById('curTime');
+  const durTime    = document.getElementById('durTime');
+  const volSlider  = document.getElementById('volSlider');
+  const muteBtn    = document.getElementById('muteBtn');
+  const muteIcon   = document.getElementById('muteIcon');
+  const infoBtn    = document.getElementById('infoBtn');
+  const infoTooltip = document.getElementById('infoTooltip');
+
+  const tracks = [
+    { src: 'musicsoundsbetterwithyou.mp3', title: 'Music Sounds Better With You', artist: 'Stardust', cover: 'musicsoundsbetterwithyou.jpg', credit: 'Song: Music Sounds Better With You — by Stardust' },
+    { src: 'pushthefeelingon.mp3',         title: 'Push The Feeling On',           artist: 'Nightcrawlers', cover: 'pushthefeelingon.jpg', credit: 'Song: Push The Feeling On — by Nightcrawlers' },
+  ];
+  let idx = 0, seeking = false, savedVol = 0.8, triggered359 = false;
+  const easter359 = document.getElementById('easter359');
+  const player = document.querySelector('.player');
+
+  const fmt = s => {
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  };
+
+  const load = (i) => {
+    idx = ((i % tracks.length) + tracks.length) % tracks.length;
+    const t = tracks[idx];
+    audio.src = t.src;
+    trackName.textContent = t.title;
+    trackCredit.textContent = '• ' + t.artist;
+    infoTooltip.textContent = t.credit;
+    albumArt.style.backgroundImage = `url("${t.cover}")`;
+    audio.load();
+    progInput.value = 0;
+    progFill.style.width = '0%';
+    curTime.textContent = '0:00';
+    durTime.textContent = '0:00';
+    triggered359 = false; // reset for each new track
+  };
+
+  const playPrev = () => { load(idx - 1); audio.play().catch(() => {}); };
+  const playNext = () => { load(idx + 1); audio.play().catch(() => {}); };
+
+  prevBtn.addEventListener('click', playPrev);
+  nextBtn.addEventListener('click', playNext);
+
+  // Sync play/pause icon + scrolling + album pulse
+  const syncIcon = () => {
+    if (audio.paused) {
+      playIcon.className = 'fa-solid fa-play';
+      playIcon.style.marginLeft = '3px';
+      trackNameRow.classList.remove('scrolling');
+      albumArt.classList.remove('playing');
+    } else {
+      playIcon.className = 'fa-solid fa-pause';
+      playIcon.style.marginLeft = '0';
+      trackNameRow.classList.add('scrolling');
+      albumArt.classList.add('playing');
+    }
+  };
+
+  const syncProgress = () => {
+    const d = audio.duration || 0, c = audio.currentTime || 0;
+    const pct = d ? (c / d) * 100 : 0;
+    if (!seeking) {
+      progInput.value = Math.round((pct / 100) * 1000);
+      progFill.style.width = pct + '%';
+    }
+    curTime.textContent = fmt(c);
+    durTime.textContent = fmt(d);
+  };
+
+  playBtn.addEventListener('click', () => {
+    audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  });
+
+  audio.addEventListener('play', syncIcon);
+  audio.addEventListener('pause', syncIcon);
+  audio.addEventListener('timeupdate', () => {
+    if (!seeking) syncProgress();
+    check359();
+  });
+  audio.addEventListener('loadedmetadata', syncProgress);
+  audio.addEventListener('ended', playNext);
+
+  // ── 359 Easter Egg ──
+  function spawnParticles() {
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const angle = (Math.PI * 2 / 20) * i;
+      const dist = 120 + Math.random() * 200;
+      const x = Math.cos(angle) * dist;
+      const y = Math.sin(angle) * dist;
+      const size = 3 + Math.random() * 6;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = '50%';
+      p.style.top = '50%';
+      p.style.background = ['#ffc837', '#f5d37f', '#fff6d5', '#ffaa00'][Math.floor(Math.random() * 4)];
+      easter359.appendChild(p);
+      p.animate([
+        { opacity: 1, transform: 'translate(-50%,-50%) translate(0,0) scale(1)' },
+        { opacity: 0, transform: `translate(-50%,-50%) translate(${x}px,${y}px) scale(0)` }
+      ], { duration: 1200 + Math.random() * 600, easing: 'cubic-bezier(0.2,0.8,0.2,1)', fill: 'forwards', delay: 200 + Math.random() * 300 });
+      setTimeout(() => p.remove(), 2200);
+    }
+  }
+
+  // ── Theme Toggle Logic ──
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+  const bonjourImg = document.getElementById('bonjourImg');
+  
+  // Check local storage for preference
+  if (localStorage.getItem('dark-theme') === 'true') {
+    document.body.classList.add('dark-theme');
+    themeIcon.className = 'fa-solid fa-sun';
+    bonjourImg.src = 'bonjour_dark.png';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    localStorage.setItem('dark-theme', isDark);
+    
+    // Toggle the icon and bonjour image
+    if (isDark) {
+      themeIcon.className = 'fa-solid fa-sun';
+      bonjourImg.src = 'bonjour_dark.png';
+    } else {
+      themeIcon.className = 'fa-solid fa-moon';
+      bonjourImg.src = 'bonjour_light.png';
+    }
+  });
+
+  // ── Changing Title Effect ──
+  const greetings = [
+    "Bonjour", "Hi", "Namaste", "Hola", "Ciao", 
+    "Konnichiwa", "Guten Tag", "Aloha", "Privet", "Nǐ hǎo",
+    "Anyoung haseyo", "Shalom", "Salaam", "Merhaba", "Jambo",
+    "Sawaddee", "Hej", "Hei", "Olá", "Hallo"
+  ];
+  let titleIdx = 0;
+  setInterval(() => {
+    document.title = greetings[titleIdx] + " | SBP359";
+    titleIdx = (titleIdx + 1) % greetings.length;
+  }, 1000);
+
+  function check359() {
+    const sec = Math.floor(audio.currentTime);
+    if (sec === 239 && !triggered359) { // 3:59 = 3*60 + 59 = 239s
+      triggered359 = true;
+      // Show overlay
+      easter359.classList.add('active');
+      spawnParticles();
+      // Shimmer on player bar
+      player.classList.add('shimmer');
+      // Clean up after animation
+      setTimeout(() => {
+        easter359.classList.remove('active');
+        player.classList.remove('shimmer');
+        // Remove particle leftovers
+        easter359.querySelectorAll('.particle').forEach(p => p.remove());
+      }, 3000);
+    }
+  }
+
+  progInput.addEventListener('mousedown', () => seeking = true);
+  progInput.addEventListener('touchstart', () => seeking = true);
+  progInput.addEventListener('input', () => {
+    const pct = (progInput.value / 1000) * 100;
+    progFill.style.width = pct + '%';
+    curTime.textContent = fmt((pct / 100) * (audio.duration || 0));
+  });
+  progInput.addEventListener('change', () => {
+    audio.currentTime = (progInput.value / 1000) * (audio.duration || 0);
+    seeking = false;
+  });
+
+  // ── Mute toggle ──
+  const syncMuteIcon = () => {
+    if (audio.muted || audio.volume === 0) {
+      muteIcon.className = 'fa-solid fa-volume-xmark';
+    } else if (audio.volume < 0.5) {
+      muteIcon.className = 'fa-solid fa-volume-low';
+    } else {
+      muteIcon.className = 'fa-solid fa-volume-high';
+    }
+  };
+
+  muteBtn.addEventListener('click', () => {
+    if (audio.muted) {
+      audio.muted = false;
+      volSlider.value = Math.round(savedVol * 100);
+    } else {
+      savedVol = audio.volume;
+      audio.muted = true;
+      volSlider.value = 0;
+    }
+    syncMuteIcon();
+    updateVolTrack(volSlider.value);
+  });
+
+  // Color the volume slider track dynamically
+  const updateVolTrack = (val) => {
+    volSlider.style.background = `linear-gradient(to right, var(--accent) ${val}%, var(--track-bg) ${val}%)`;
+  };
+
+  audio.volume = volSlider.value / 100;
+  syncMuteIcon();
+  updateVolTrack(volSlider.value);
+  
+  volSlider.addEventListener('input', () => { 
+    const v = volSlider.value / 100;
+    audio.volume = v;
+    audio.muted = false;
+    syncMuteIcon();
+    updateVolTrack(volSlider.value);
+  });
+
+  // ── Info tooltip toggle ──
+  infoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    infoBtn.classList.toggle('active');
+  });
+  document.addEventListener('click', () => {
+    infoBtn.classList.remove('active');
+  });
+
+  load(0);
+})();
+</script>
+</body>
+</html>
