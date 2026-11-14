@@ -1144,14 +1144,26 @@
   load(0);
 })();
 </script>
-<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
 <script>
-  kofiWidgetOverlay.draw('sbp359', {
-    'type': 'floating-chat',
-    'floating-chat.donateButton.text': 'Support me',
-    'floating-chat.donateButton.background-color': '#00b9fe',
-    'floating-chat.donateButton.text-color': '#fff'
+  const positionKofiWidget = () => {
+    const player = document.querySelector('.player');
+    const widget = document.querySelector(
+      '#kofi-widget-overlay, iframe[id*="kofi"], iframe[src*="ko-fi"]'
+    );
+
+    if (!player || !widget) return;
+
+    const gap = 12;
+    const bottomOffset = window.innerHeight - player.getBoundingClientRect().top + gap;
+    widget.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+  };
+
+  new MutationObserver(positionKofiWidget).observe(document.body, {
+    childList: true,
+    subtree: true
   });
+  window.addEventListener('resize', positionKofiWidget);
+  positionKofiWidget();
 </script>
 </body>
 </html>
