@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachin B Pillai (SBP359) — Student Developer · AI &amp; Security</title>
+  <meta name="description" content="Sachin B Pillai (SBP359) — Student developer building practical software across AI, machine learning, cybersecurity, and browser extensions." />
+  <link rel="icon" href="assets/ico.ico" type="image/x-icon" />
+
+  <!-- Distinctive Editorial & Technical Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Scroll Reading Progress Hairline -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Top Navigation -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="brand-link" aria-label="SBP359 Home">
+        <img src="assets/sbp.png" alt="SBP359" class="brand-logo" />
+      </a>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#about" class="nav-link"><span class="nav-idx">01</span> About</a>
+        <a href="#addons" class="nav-link"><span class="nav-idx">02</span> Add-ons</a>
+        <a href="#skills" class="nav-link"><span class="nav-idx">03</span> Skills</a>
+        <a href="#achievements" class="nav-link"><span class="nav-idx">04</span> Milestones</a>
+        <a href="#connect" class="nav-link"><span class="nav-idx">05</span> Connect</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-pill cmd-trigger" id="cmd-open-btn" title="Open Command Palette (Ctrl+K / ⌘K)" aria-label="Open Command Palette">
+          <i class="fa-solid fa-terminal"></i>
+          <span class="kbd-hint">⌘K</span>
+        </button>
+
+        <button type="button" class="icon-pill theme-toggle" id="theme-toggle" title="Toggle Light / Dark Theme (T)" aria-label="Toggle Light or Dark Theme">
+          <i class="fa-solid fa-sun" id="theme-icon"></i>
+          <span class="theme-label" id="theme-label">Light</span>
+        </button>
+
+        <button type="button" class="icon-pill mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav" hidden>
+      <div class="container mobile-nav-inner">
+        <a href="#about" class="mobile-nav-link"><span>01</span> About Me</a>
+        <a href="#addons" class="mobile-nav-link"><span>02</span> Add-ons &amp; Work</a>
+        <a href="#skills" class="mobile-nav-link"><span>03</span> Core Skills</a>
+        <a href="#achievements" class="mobile-nav-link"><span>04</span> Milestones</a>
+        <a href="#connect" class="mobile-nav-link"><span>05</span> Let's Connect</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="bonjour-wrap" aria-label="Bonjour">
+            <img src="assets/bonjour_dark.png" alt="Bonjour" class="bonjour-img bonjour-dark" />
+            <img src="assets/bonjour_light.png" alt="Bonjour" class="bonjour-img bonjour-light" />
+          </div>
+
+          <div class="eyebrow-row">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="mono-tag">STUDENT &bull; DEVELOPER &bull; SBP359</span>
+          </div>
+
+          <h1 class="hero-title">
+            Sachin B Pillai<span class="accent-dot">.</span>
+            <span class="hero-subtitle-line">
+              Building practical software across
+              <em class="serif-em">AI</em>, <em class="serif-em">machine learning</em> &amp; <em class="serif-em">cybersecurity</em>.
+            </span>
+          </h1>
+
+          <p class="hero-lead">
+            Student developer interested in AI, machine learning, and cybersecurity. Actively exploring capture-the-flag (CTF) challenges, security concepts, and intelligent systems.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="#addons" class="btn btn-primary">
+              <i class="fa-brands fa-firefox-browser"></i>
+              <span>Explore Add-ons</span>
+            </a>
+            <a href="https://github.com/SBP359" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="#connect" class="btn btn-ghost">
+              <span>Let's Connect</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Architectural Dossier Card -->
+        <aside class="dossier-card" aria-label="Developer Dossier">
+          <div class="dossier-header">
+            <span class="mono-label"><i class="fa-regular fa-id-badge"></i> DOSSIER // 00</span>
+            <span class="mono-badge live-badge">OPEN TO COLLAB</span>
+          </div>
+
+          <div class="dossier-rows">
+            <div class="dossier-row">
+              <span class="dossier-key">Handle</span>
+              <span class="dossier-val mono">@SBP359</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-key">Location</span>
+              <span class="dossier-val">Kerala, India</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-key">Local Time</span>
+              <span class="dossier-val mono" id="ist-clock">--:--:-- IST</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-key">Focus</span>
+              <span class="dossier-val">AI / ML &middot; CTF &middot; Extensions</span>
+            </div>
+            <div class="dossier-row">
+              <span class="dossier-key">Highlight</span>
+              <span class="dossier-val">Zonal Hackathon Winner</span>
+            </div>
+          </div>
+
+          <div class="dossier-metrics">
+            <div class="metric-cell">
+              <span class="metric-num">03</span>
+              <span class="metric-lbl">Firefox Add-ons</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-num">847+</span>
+              <span class="metric-lbl">Active Users</span>
+            </div>
+            <div class="metric-cell">
+              <span class="metric-num">5.0<i class="fa-solid fa-star metric-star"></i></span>
+              <span class="metric-lbl">AMO Rating</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 01 / ABOUT SECTION -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-index">01 / ABOUT</span>
+          <h2 class="section-title">Practical engineering meets <em class="serif-em">curious exploration</em>.</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-prose">
+            <p class="lead-paragraph">
+              I am a student developer building practical software while learning deeply about intelligent systems and security.
+            </p>
+            <p class="body-paragraph">
+              My current direction combines AI and machine learning with cybersecurity fundamentals through experiments, CTF-style problem solving, and project-based learning. Whether shipping lightweight, zero-tracking browser extensions or prototyping hackathon tools, I care about fast, minimal software that solves real problems without bloat.
+            </p>
+          </div>
+
+          <div class="pillars-grid">
+            <article class="pillar-item">
+              <div class="pillar-icon"><i class="fa-solid fa-microchip"></i></div>
+              <h3>Intelligent Systems</h3>
+              <p>Exploring AI and machine learning through applied prototypes, student tools, and hackathon builds like AI VidyaSetu 1.0.</p>
+            </article>
+            <article class="pillar-item">
+              <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h3>Security &amp; CTF</h3>
+              <p>Actively learning cybersecurity fundamentals through capture-the-flag challenges, web internals, and hands-on analysis.</p>
+            </article>
+            <article class="pillar-item">
+              <div class="pillar-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+              <h3>Browser Tooling</h3>
+              <p>Crafting fast, privacy-first Firefox &amp; Chrome extensions designed to remove friction and distraction from the web.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / ADD-ONS & FEATURED WORK -->
+    <section class="section" id="addons">
+      <div class="container">
+        <div class="section-head section-head-split">
+          <div>
+            <span class="section-index">02 / EXTENSIONS &amp; WORK</span>
+            <h2 class="section-title">Shipped <em class="serif-em">add-ons</em> &amp; projects.</h2>
+          </div>
+
+          <div class="filter-bar" role="tablist" aria-label="Filter projects">
+            <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All <span class="filter-count">4</span></button>
+            <button type="button" class="filter-btn" data-filter="extensions" role="tab" aria-selected="false">Firefox Add-ons <span class="filter-count">3</span></button>
+            <button type="button" class="filter-btn" data-filter="ai" role="tab" aria-selected="false">AI &amp; Hackathon <span class="filter-count">1</span></button>
+          </div>
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+          <!-- Card 1: Scribd Downloader -->
+          <article class="project-card" data-category="extensions" data-project-id="scribd-downloader">
+            <div class="project-top">
+              <div class="addon-icon-frame">
+                <img src="assets/icon128.png" alt="Scribd Downloader icon" class="addon-icon" />
+              </div>
+              <div class="project-meta-right">
+                <span class="mono-pill">v1.0.2 &middot; Firefox</span>
+                <span class="verified-stat"><i class="fa-solid fa-star"></i> 5.0 (11) &middot; 847 Users</span>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">Scribd Downloader</h3>
+              <p class="project-desc">
+                Prepare accessible Scribd documents as clean PDFs directly inside your browser. Automatically scrolls pages and triggers the native print-to-PDF workflow with zero data collection.
+              </p>
+              <ul class="tag-list">
+                <li>37.1 KB</li>
+                <li>MIT License</li>
+                <li>Zero Tracking</li>
+                <li>Firefox Android &amp; Desktop</li>
+              </ul>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://addons.mozilla.org/en-US/firefox/addon/scribd-downloader/" target="_blank" rel="noopener noreferrer" class="card-link-primary">
+                <i class="fa-brands fa-firefox-browser"></i>
+                <span>Install on Firefox</span>
+                <i class="fa-solid fa-arrow-up-right-from-square link-ext"></i>
+              </a>
+              <button type="button" class="card-spec-btn" data-inspect="scribd-downloader">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Spec</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: StudyTube -->
+          <article class="project-card" data-category="extensions" data-project-id="studytube">
+            <div class="project-top">
+              <div class="addon-icon-frame">
+                <img src="assets/studytube-icon.png" alt="StudyTube icon" class="addon-icon" />
+              </div>
+              <div class="project-meta-right">
+                <span class="mono-pill">v1.4.0 &middot; Firefox &amp; Chrome</span>
+                <span class="verified-stat"><i class="fa-solid fa-bolt"></i> O(1) Policy Engine</span>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">StudyTube</h3>
+              <p class="project-desc">
+                Transforms YouTube into a distraction-free educational workspace. Features instant CSS thumbnail blurring, 1-click subject switching, Study Theater mode, daily streaks, and built-in Pomodoro cycles.
+              </p>
+              <ul class="tag-list">
+                <li>Focus Engine</li>
+                <li>Pomodoro 25/5</li>
+                <li>Subject Switcher</li>
+                <li>Open Source</li>
+              </ul>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://addons.mozilla.org/en-US/firefox/addon/studytube-v1/" target="_blank" rel="noopener noreferrer" class="card-link-primary">
+                <i class="fa-brands fa-firefox-browser"></i>
+                <span>Install on Firefox</span>
+                <i class="fa-solid fa-arrow-up-right-from-square link-ext"></i>
+              </a>
+              <button type="button" class="card-spec-btn" data-inspect="studytube">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Spec</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 3: Pintgrab -->
+          <article class="project-card" data-category="extensions" data-project-id="pintgrab">
+            <div class="project-top">
+              <div class="addon-icon-frame">
+                <img src="assets/icon256.png" alt="Pintgrab icon" class="addon-icon" />
+              </div>
+              <div class="project-meta-right">
+                <span class="mono-pill">v1.0.1 &middot; Firefox &amp; Chrome</span>
+                <span class="verified-stat"><i class="fa-solid fa-photo-film"></i> Videos &amp; Images</span>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">Pintgrab</h3>
+              <p class="project-desc">
+                Lightweight browser extension for downloading Pinterest videos (up to 720p MP4) and high-resolution images directly from pins. Extracts media cleanly across feed cards and in-app SPA navigations without third-party sites.
+              </p>
+              <ul class="tag-list">
+                <li>Videos &amp; Images</li>
+                <li>720p MP4 &amp; HD</li>
+                <li>SPA-Aware</li>
+                <li>Minimal UI</li>
+              </ul>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://addons.mozilla.org/en-US/firefox/addon/pintgrab/" target="_blank" rel="noopener noreferrer" class="card-link-primary">
+                <i class="fa-brands fa-firefox-browser"></i>
+                <span>Install on Firefox</span>
+                <i class="fa-solid fa-arrow-up-right-from-square link-ext"></i>
+              </a>
+              <button type="button" class="card-spec-btn" data-inspect="pintgrab">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Spec</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 4: AI VidyaSetu 1.0 -->
+          <article class="project-card project-card-accent" data-category="ai" data-project-id="vidysetu-ai">
+            <div class="project-top">
+              <div class="addon-icon-frame vidyasetu-logo-frame">
+                <img src="assets/vidyasetu-logo.png" alt="AI VidyaSetu 1.0 logo" class="vidyasetu-logo" />
+              </div>
+              <div class="project-meta-right">
+                <span class="mono-pill accent-pill">Hackathon Winner</span>
+                <span class="verified-stat"><i class="fa-solid fa-award"></i> Zonal Level</span>
+              </div>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">AI VidyaSetu 1.0</h3>
+              <p class="project-desc">
+                Award-winning AI project recognized as Winner at the Zonal Hackathon. Built to bridge intelligent systems with practical, student-focused problem solving under real-world constraints.
+              </p>
+              <ul class="tag-list">
+                <li>Artificial Intelligence</li>
+                <li>Zonal Hackathon Winner</li>
+                <li>Student Innovation</li>
+              </ul>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://github.com/SBP359" target="_blank" rel="noopener noreferrer" class="card-link-primary">
+                <i class="fa-brands fa-github"></i>
+                <span>View on GitHub</span>
+                <i class="fa-solid fa-arrow-up-right-from-square link-ext"></i>
+              </a>
+              <button type="button" class="card-spec-btn" data-inspect="vidysetu-ai">
+                <i class="fa-solid fa-sliders"></i>
+                <span>Spec</span>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / CORE SKILLS & INTERESTS -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-index">03 / CORE SKILLS</span>
+          <h2 class="section-title">Stack &amp; <em class="serif-em">research domains</em>.</h2>
+        </div>
+
+        <div class="skills-layout">
+          <div class="skills-panel">
+            <div class="panel-label">
+              <i class="fa-solid fa-code"></i>
+              <span>Languages &amp; Technologies</span>
+            </div>
+            <div class="skill-rows">
+              <div class="skill-row">
+                <div class="skill-name">
+                  <i class="fa-brands fa-python"></i>
+                  <span>Python</span>
+                </div>
+                <span class="skill-note">AI / ML experiments, scripting &amp; CTF tooling</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-name">
+                  <i class="fa-brands fa-js"></i>
+                  <span>JavaScript</span>
+                </div>
+                <span class="skill-note">WebExtensions, DOM engines &amp; interactive apps</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-name">
+                  <i class="fa-brands fa-node-js"></i>
+                  <span>Node.js</span>
+                </div>
+                <span class="skill-note">Backend tooling, CLIs &amp; automation workflows</span>
+              </div>
+              <div class="skill-row">
+                <div class="skill-name">
+                  <i class="fa-brands fa-html5"></i>
+                  <span>HTML / CSS</span>
+                </div>
+                <span class="skill-note">Clean, fast, semantic &amp; responsive interfaces</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-panel">
+            <div class="panel-label">
+              <i class="fa-solid fa-compass"></i>
+              <span>Fields of Interest</span>
+            </div>
+            <div class="interest-cards">
+              <div class="interest-card">
+                <div class="interest-head">
+                  <i class="fa-solid fa-brain"></i>
+                  <h3>Artificial Intelligence</h3>
+                </div>
+                <p>Designing practical intelligent systems and exploring applied AI workflows for everyday student challenges.</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-head">
+                  <i class="fa-solid fa-diagram-project"></i>
+                  <h3>Machine Learning</h3>
+                </div>
+                <p>Learning model fundamentals, experimentation pipelines, and data-driven problem solving through hands-on builds.</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-head">
+                  <i class="fa-solid fa-user-secret"></i>
+                  <h3>Cybersecurity <span class="learning-tag">Learning</span></h3>
+                </div>
+                <p>Exploring security fundamentals, capture-the-flag (CTF) challenges, and defensive engineering principles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / ACHIEVEMENTS & MILESTONES -->
+    <section class="section" id="achievements">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-index">04 / MILESTONES</span>
+          <h2 class="section-title">Selected <em class="serif-em">achievements</em>.</h2>
+        </div>
+
+        <div class="milestone-list">
+          <div class="milestone-row">
+            <span class="milestone-num">01</span>
+            <div class="milestone-content">
+              <h3><i class="fa-solid fa-trophy milestone-icon"></i> Winner &mdash; Zonal Hackathon (AI VidyaSetu 1.0)</h3>
+              <p>Secured first place at the Zonal Hackathon with AI VidyaSetu 1.0, building and presenting a live intelligent solution.</p>
+            </div>
+            <span class="milestone-tag">HACKATHON</span>
+          </div>
+
+          <div class="milestone-row">
+            <span class="milestone-num">02</span>
+            <div class="milestone-content">
+              <h3><i class="fa-brands fa-firefox-browser milestone-icon"></i> Published Firefox Add-on Developer</h3>
+              <p>Authored and shipped three public Mozilla Firefox extensions (Scribd Downloader, StudyTube, Pintgrab) with 847+ users and a 5.0-star rating on Scribd Downloader.</p>
+            </div>
+            <span class="milestone-tag">SHIPPED</span>
+          </div>
+
+          <div class="milestone-row">
+            <span class="milestone-num">03</span>
+            <div class="milestone-content">
+              <h3><i class="fa-brands fa-github milestone-icon"></i> Active Contributor to GitHub Projects</h3>
+              <p>Maintaining open-source repositories, browser utilities, and learning experiments publicly at github.com/SBP359.</p>
+            </div>
+            <span class="milestone-tag">OPEN SOURCE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / CONNECT & SUPPORT -->
+    <section class="section connect-section" id="connect">
+      <div class="container">
+        <div class="connect-box">
+          <div class="connect-left">
+            <span class="section-index">05 / CONNECT</span>
+            <h2 class="connect-title">Let's build something <em class="serif-em">meaningful</em>.</h2>
+            <p class="connect-lead">
+              I am completely open to collaborating on meaningful student projects, AI experiments, and security-focused learning initiatives.
+            </p>
+
+            <div class="connect-actions">
+              <a href="mailto:sachinbp359@gmail.com" class="btn btn-primary">
+                <i class="fa-regular fa-envelope"></i>
+                <span>sachinbp359@gmail.com</span>
+              </a>
+              <button type="button" class="btn btn-outline" id="copy-email-btn">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy Email</span>
+              </button>
+              <a href="https://github.com/SBP359" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                <i class="fa-brands fa-github"></i>
+                <span>github.com/SBP359</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="connect-right">
+            <div class="kofi-card">
+              <span class="mono-label"><i class="fa-solid fa-mug-hot"></i> SUPPORT MY WORK</span>
+              <p>If my free, open-source Firefox add-ons save you time, consider buying me a coffee on Ko-fi.</p>
+              <div class="kofi-widget-slot" id="kofi-widget-slot">
+                <a href="https://ko-fi.com/A0S22AIZ7L" target="_blank" rel="noopener noreferrer" class="kofi-fallback-btn">
+                  <i class="fa-solid fa-mug-saucer"></i>
+                  <span>Support me on Ko-fi</span>
+                </a>
+              </div>
+              <script type="text/javascript" src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"></script>
+              <script type="text/javascript">
+                (function () {
+                  try {
+                    if (typeof kofiwidget2 !== 'undefined') {
+                      var slot = document.getElementById('kofi-widget-slot');
+                      kofiwidget2.init('Support me on Ko-fi', '#72a4f2', 'A0S22AIZ7L');
+                      if (slot && typeof kofiwidget2.getHTML === 'function') {
+                        slot.innerHTML = kofiwidget2.getHTML();
+                      }
+                    }
+                  } catch (e) {
+                    /* Fallback button remains visible */
+                  }
+                })();
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/sbp.png" alt="SBP359" class="footer-logo" />
+        <span class="footer-copy">&copy; 2026 Sachin B Pillai. Crafted cleanly, zero bloat.</span>
+      </div>
+
+      <div class="footer-tools">
+        <button type="button" class="footer-btn" id="footer-cmd-btn">
+          <i class="fa-solid fa-terminal"></i> ⌘K Palette
+        </button>
+        <button type="button" class="footer-btn" id="ctf-open-btn" title="Try a tiny CTF challenge">
+          <i class="fa-solid fa-flag"></i> CTF
+        </button>
+        <a href="#top" class="footer-btn" aria-label="Back to top">
+          <i class="fa-solid fa-arrow-up"></i> Top
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SPEC SHEET MODAL -->
+  <div class="modal-backdrop" id="spec-modal" hidden role="dialog" aria-modal="true" aria-labelledby="spec-modal-title">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="mono-label" id="spec-modal-kicker">SPECIFICATION</span>
+          <h3 id="spec-modal-title">Project Title</h3>
+        </div>
+        <button type="button" class="modal-close" id="spec-modal-close" aria-label="Close specification">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="spec-modal-body"></div>
+      <div class="modal-footer" id="spec-modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- COMMAND PALETTE MODAL (Cmd+K / Ctrl+K) -->
+  <div class="modal-backdrop" id="cmd-modal" hidden role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="cmd-sheet">
+      <div class="cmd-input-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="cmd-input" placeholder="Type a command or jump to section..." autocomplete="off" />
+        <span class="kbd-hint">ESC</span>
+      </div>
+      <div class="cmd-list" id="cmd-list"></div>
+    </div>
+  </div>
+
+  <!-- CTF MINI-CHALLENGE MODAL -->
+  <div class="modal-backdrop" id="ctf-modal" hidden role="dialog" aria-modal="true" aria-labelledby="ctf-modal-title">
+    <div class="modal-sheet ctf-sheet">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="mono-label"><i class="fa-solid fa-flag"></i> MICRO-CTF // WARMUP</span>
+          <h3 id="ctf-modal-title">Decode the Signal</h3>
+        </div>
+        <button type="button" class="modal-close" id="ctf-modal-close" aria-label="Close CTF challenge">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="ctf-desc">A tiny easter egg for fellow security learners. Decode this Base64 string and submit the flag below:</p>
+        <div class="code-slab" id="ctf-cipher">U0JQMzU5e2dsb3J5X3RvX29wZW5fc291cmNlfQ==</div>
+        <form id="ctf-form" class="ctf-form">
+          <input type="text" id="ctf-input" placeholder="SBP359{...}" autocomplete="off" />
+          <button type="submit" class="btn btn-primary">Verify Flag</button>
+        </form>
+        <p class="ctf-feedback" id="ctf-feedback" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
