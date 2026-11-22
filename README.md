@@ -1,13 +1,21 @@
-# Sachin B Pillai (SBP359) — Personal Portfolio
-
-Minimal, fast, responsive personal portfolio website built with pure HTML, CSS, and vanilla JavaScript.
-
-## Structure
-- `index.html` — Main semantic markup and Ko-fi widget integration
-- `css/style.css` — Light ("Editorial Paper") and Dark ("Obsidian Studio") themes
-- `js/main.js` — Theme persistence, live IST clock, add-on filter, Spec Sheet modal, `⌘K` Command Palette, and Micro-CTF easter egg
-- `assets/` — Brand marks (`sbp.png`, `ico.ico`), theme-aware `bonjour` signatures (`bonjour_dark.png`, `bonjour_light.png`), and Firefox add-on icons (`icon128.png`, `studytube-icon.png`, `icon256.png`)
-
-## Local Preview & Deployment
-- Open `index.html` directly in any browser, or run `python3 -m http.server 8000` in this folder.
-- Deploy directly to GitHub Pages (`SBP359.github.io`) by pushing the contents of this folder to your repository root.
+> Whose woods these are I think I know.  
+> His house is in the village though;  
+> He will not see me stopping here  
+> To watch his woods fill up with snow.
+>
+> My little horse must think it queer  
+> To stop without a farmhouse near  
+> Between the woods and frozen lake  
+> The darkest evening of the year.
+>
+> He gives his harness bells a shake  
+> To ask if there is some mistake.  
+> The only other sound’s the sweep  
+> Of easy wind and downy flake.
+>
+> The woods are lovely, dark and deep,  
+> But I have promises to keep,  
+> And miles to go before I sleep,  
+> And miles to go before I sleep.
+>
+> — *Robert Frost*
