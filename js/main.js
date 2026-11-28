@@ -83,6 +83,26 @@
       links: [
         { label: 'Explore GitHub Profile', href: 'https://github.com/SBP359', icon: 'fa-brands fa-github', primary: true }
       ]
+    },
+    'study-tracker': {
+      kicker: 'WEB APPLICATION // OFFLINE PWA',
+      title: 'Study Tracker',
+      meta: [
+        { k: 'Tracks', v: '15 Boards & Exams' },
+        { k: 'Syllabus', v: '3,987 Chapters' },
+        { k: 'Storage', v: 'Browser localStorage' },
+        { k: 'Technology', v: 'HTML · CSS · JavaScript' }
+      ],
+      points: [
+        'Tracks chapter progress, daily study plans, revision schedules, and exam scores in one place.',
+        'Includes national, state-board, international-board, JEE, and NEET study tracks.',
+        'Runs as a 100% static, offline-ready PWA with no backend or build step.',
+        'Supports JSON backup export, restore, and legacy backup importing.'
+      ],
+      links: [
+        { label: 'Open Study Tracker', href: 'https://sbp359.github.io/Study-Tracker/', icon: 'fa-solid fa-arrow-up-right-from-square', primary: true },
+        { label: 'Source on GitHub', href: 'https://github.com/SBP359/Study-Tracker', icon: 'fa-brands fa-github', primary: false }
+      ]
     }
   };
 
@@ -322,6 +342,7 @@
     { label: 'Open Scribd Downloader (AMO)', hint: 'External', icon: 'fa-solid fa-file-pdf', run: function () { window.open('https://addons.mozilla.org/en-US/firefox/addon/scribd-downloader/', '_blank', 'noopener,noreferrer'); } },
     { label: 'Open StudyTube (AMO)', hint: 'External', icon: 'fa-solid fa-graduation-cap', run: function () { window.open('https://addons.mozilla.org/en-US/firefox/addon/studytube-v1/', '_blank', 'noopener,noreferrer'); } },
     { label: 'Open Pintgrab (AMO)', hint: 'External', icon: 'fa-solid fa-download', run: function () { window.open('https://addons.mozilla.org/en-US/firefox/addon/pintgrab/', '_blank', 'noopener,noreferrer'); } },
+    { label: 'Open Study Tracker', hint: 'Search · External', icon: 'fa-solid fa-magnifying-glass', run: function () { window.open('https://sbp359.github.io/Study-Tracker/', '_blank', 'noopener,noreferrer'); } },
     { label: 'Launch Micro-CTF Challenge', hint: 'Easter Egg', icon: 'fa-solid fa-flag', run: function () { openCtfModal(); } }
   ];
 
